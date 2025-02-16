@@ -8,11 +8,11 @@ interface SliderProps {
 const Slider = ({ value, onValueChange } : SliderProps) => {
     return (
         <SliderRadix.Root
-        className="relative flex w-full h-5 items-center select-none touch-none"
-        value={[value]}
-        onValueChange={(newValue) => onValueChange(newValue[0])}
-        max={100}
-        step={10}
+            className="relative flex w-full h-5 items-center select-none touch-none my-2"
+            value={[value]}
+            onValueChange={(newValue) => onValueChange(newValue[0])}
+            max={100}
+            step={10}
         >
         <SliderRadix.Track className="relative flex-grow h-[3px] bg-primary-50 rounded-full">
             <SliderRadix.Range className="absolute h-full bg-primary-600 rounded-full" />

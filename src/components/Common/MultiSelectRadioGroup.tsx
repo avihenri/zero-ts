@@ -37,7 +37,10 @@ const MultiSelectRadioGroup = ({
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div
+      className="flex flex-col gap-2"
+      data-testid="multi-select-radio-group"
+    >
       {label && <p className="text-sm font-medium text-primary-50">{label}</p>}
       <div className="flex flex-col gap-2">
         {visibleOptions.map((option) => (
@@ -62,7 +65,7 @@ const MultiSelectRadioGroup = ({
         <button
           type="button"
           onClick={() => setShowAll((prev) => !prev)}
-          className="mt-1 text-sm text-primary-400 hover:underline"
+          className="mt-1 text-xs text-primary-400 hover:underline"
         >
           {showAll ? "Show Less" : `Show More (${options.length - maxVisible} more)`}
         </button>
