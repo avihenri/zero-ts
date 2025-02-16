@@ -14,7 +14,7 @@ const LoginSignUpDialog = () => {
             <div data-testid="loginSignUp-dialog">
                 <Tabs
                     defaultValue="login"
-                    tabActiveColor="bg-action-400"
+                    // tabActiveColor="bg-action-400"
                     tabs={[
                         {
                             label: "Login",
