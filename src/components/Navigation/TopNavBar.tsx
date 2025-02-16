@@ -4,7 +4,8 @@ import { userMenuOpenStateAtom } from "../../state/atoms/userMenuOpenStateAtom";
 import { loginSignupDialogOpenStateAtom } from "../../state/atoms/loginSignupDialogOpenStateAtom";
 import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
 import { PANEL_CONTENT } from "../../state/consts/mainPanel";
-const user = true;
+
+const user = Math.random() < 0.5; // testing purposes TODO: remove
 
 const TopNavBar = () => {
   const setloginSignupDialogOpen = useSetRecoilState(loginSignupDialogOpenStateAtom);
