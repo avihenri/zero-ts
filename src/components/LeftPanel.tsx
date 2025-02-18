@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useRecoilState } from "recoil";
 import { PANEL_CONTENT } from "../state/consts/mainPanel";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
-import MainMenuDropdown from "./Navigation/MainMenu";
+import MainMenu from "./Navigation/MainMenu";
 import FilterPanel from "./FilterPanel";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
@@ -33,7 +33,7 @@ const LeftPanel = () => {
                 <IoMdCloseCircleOutline className="text-2xl" />
             </button>
 
-            {leftPanel === PANEL_CONTENT.MAIN_MENU && <MainMenuDropdown />}
+            {leftPanel === PANEL_CONTENT.MAIN_MENU && <MainMenu />}
             {leftPanel === PANEL_CONTENT.FILTER_SORT && <FilterPanel />}
         </div>
     );

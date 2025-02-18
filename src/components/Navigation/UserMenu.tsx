@@ -1,36 +1,34 @@
-import { useSetRecoilState } from "recoil";
 import Divider from "../Common/Divider";
 import { MenuItem } from "./MenuItem";
-import { userMenuOpenStateAtom } from "../../state/atoms/userMenuOpenStateAtom";
-import { IoMdCloseCircleOutline } from "react-icons/io";
 import { MdFavorite, MdLogout, MdManageAccounts } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
+import { FaUserCircle, FaUsers } from "react-icons/fa";
 
-const UserMenuDropdown = () => {
-  const setUserMenuOpen = useSetRecoilState(userMenuOpenStateAtom);
-
+const UserMenu = () => {
     const handleClick = () => {
         console.log("click");
     };
 
     return (
         <div
-            className="absolute z-30 top-2 right-1 left-1 md:left-auto bg-grey-950 text-grey-500 rounded-xl shadow-md p-2 border border-grey-500 h-[98%] md:h-fit w-[98%] md:w-1/3 xl:w-1/4"
-            data-testid="user-menu-dropdown"
+            className="flex flex-col justify-between h-full"
+            data-testid="user-menu"
         >
                 <div
-                    className="flex justify-between mt-2"
+                    className="mt-2 w-full flex justify-end"
                     data-testid="user-menu-dropdown-header"
                 >
-                    <span className="text-lg font-semibold text-primary-200 ml-2">Avihenri</span>
                     <button
                         type="button"
-                        className="absolute top-1 right-1 p-1 rounded-full text-grey-400 hover:bg-grey-700 transition"
-                        onClick={() => setUserMenuOpen(false)}
-                        aria-label="Close user menu dropdown"
-                        >
-                            <IoMdCloseCircleOutline className="text-2xl" />
-                        </button>
+                        className="flex"
+                        onClick={handleClick}
+                        data-testid="user-icon-button"
+                    >
+                        <span
+                            className="text-lg font-semibold text-primary-200 ml-2 float-right mr-2"
+                            data-testid="user-name"
+                        >Avihenri</span>
+                        <FaUserCircle data-testid="user-icon" className="text-2xl cursor-pointer hover:scale-105" />
+                    </button>
                 </div>
 
                 <Divider />
@@ -80,4 +78,4 @@ const UserMenuDropdown = () => {
     );
 };
 
-export default UserMenuDropdown;
+export default UserMenu;

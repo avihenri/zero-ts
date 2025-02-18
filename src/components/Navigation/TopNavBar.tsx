@@ -1,31 +1,31 @@
 import { FaBars, FaUserCircle } from "react-icons/fa";
 import { useSetRecoilState } from "recoil";
-import { userMenuOpenStateAtom } from "../../state/atoms/userMenuOpenStateAtom";
 import { loginSignupDialogOpenStateAtom } from "../../state/atoms/loginSignupDialogOpenStateAtom";
 import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
 import { PANEL_CONTENT } from "../../state/consts/mainPanel";
+import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
 
 const user = Math.random() < 0.5; // testing purposes TODO: remove
 
 const TopNavBar = () => {
   const setloginSignupDialogOpen = useSetRecoilState(loginSignupDialogOpenStateAtom);
-  const setUserMenuOpen = useSetRecoilState(userMenuOpenStateAtom);
-  const setRightPanel = useSetRecoilState(leftPanelStateAtom);
+  const setLeftPanel = useSetRecoilState(leftPanelStateAtom);
+  const setRightPanel = useSetRecoilState(rightPanelStateAtom);
 
   const handleUserIconClick = () => {
-    setRightPanel(PANEL_CONTENT.CLOSED);
+    setLeftPanel(PANEL_CONTENT.CLOSED);
     
     if (!user) {
       setloginSignupDialogOpen(true);
       return;
     }
 
-    setUserMenuOpen((prev) => !prev);
+    setRightPanel(PANEL_CONTENT.USER_MENU);
   }
 
   const handleMenuIconClick = () => {
-    setRightPanel((prev) => prev === 'MAIN_MENU' ? PANEL_CONTENT.CLOSED : 'MAIN_MENU');
-    setUserMenuOpen(false);
+    setRightPanel(PANEL_CONTENT.CLOSED);
+    setLeftPanel((prev) => prev === 'MAIN_MENU' ? PANEL_CONTENT.CLOSED : 'MAIN_MENU');
   }
 
   return (
