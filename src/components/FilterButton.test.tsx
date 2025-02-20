@@ -4,7 +4,7 @@ import { RecoilRoot } from "recoil";
 import FilterButton from "./FilterButton";
 import { selectedTagCountStateAtom } from "../state/atoms/selectedTagCountStateAtom";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
-import { PANEL_CONTENT } from "../state/consts/mainPanel";
+import { PANEL_CONTENT } from "../state/consts/panels";
 
 
 describe("FilterButton Component", () => {
@@ -32,7 +32,7 @@ describe("FilterButton Component", () => {
 
     test("toggles panel state when clicked", () => {
         render(
-            <RecoilRoot initializeState={({ set }) => set(leftPanelStateAtom, PANEL_CONTENT.CLOSED)}>
+            <RecoilRoot initializeState={({ set }) => set(leftPanelStateAtom, { currentPanel: PANEL_CONTENT.CLOSED, previousPanel: null })}>
                 <FilterButton />
             </RecoilRoot>
         );

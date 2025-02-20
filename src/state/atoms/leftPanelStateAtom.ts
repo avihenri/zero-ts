@@ -1,7 +1,15 @@
 import { atom } from 'recoil';
-import { PANEL_CONTENT, PanelView } from '../consts/mainPanel';
+import { PANEL_CONTENT, PanelView } from '../consts/panels';
 
-export const leftPanelStateAtom = atom<PanelView>({
-  key: 'leftPanelStateAtom',
-  default: PANEL_CONTENT.CLOSED,
+interface PanelState {
+  currentPanel: PanelView;
+  previousPanel: PanelView | null;
+}
+
+export const leftPanelStateAtom = atom<PanelState>({
+  key: 'panelSleftPanelStateAtomtate',
+  default: {
+    currentPanel: PANEL_CONTENT.CLOSED,
+    previousPanel: null,
+  },
 });

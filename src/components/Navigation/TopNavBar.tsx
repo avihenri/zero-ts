@@ -2,7 +2,7 @@ import { FaBars, FaUserCircle } from "react-icons/fa";
 import { useSetRecoilState } from "recoil";
 import { loginSignupDialogOpenStateAtom } from "../../state/atoms/loginSignupDialogOpenStateAtom";
 import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
-import { PANEL_CONTENT } from "../../state/consts/mainPanel";
+import { PANEL_CONTENT } from "../../state/consts/panels";
 import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
 
 const user = Math.random() < 0.5; // testing purposes TODO: remove
@@ -13,7 +13,7 @@ const TopNavBar = () => {
   const setRightPanel = useSetRecoilState(rightPanelStateAtom);
 
   const handleUserIconClick = () => {
-    setLeftPanel(PANEL_CONTENT.CLOSED);
+    setLeftPanel({ currentPanel: PANEL_CONTENT.CLOSED, previousPanel: null });
     
     if (!user) {
       setloginSignupDialogOpen(true);
@@ -25,7 +25,10 @@ const TopNavBar = () => {
 
   const handleMenuIconClick = () => {
     setRightPanel(PANEL_CONTENT.CLOSED);
-    setLeftPanel((prev) => prev === 'MAIN_MENU' ? PANEL_CONTENT.CLOSED : 'MAIN_MENU');
+    setLeftPanel((prev) => ({
+      currentPanel: prev.currentPanel === PANEL_CONTENT.MAIN_MENU ? PANEL_CONTENT.CLOSED : PANEL_CONTENT.MAIN_MENU,
+      previousPanel: prev.currentPanel !== PANEL_CONTENT.CLOSED ? prev.currentPanel : null,
+  }))
   }
 
   return (

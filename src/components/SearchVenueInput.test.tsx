@@ -7,7 +7,7 @@ describe("SearchVenueInput Component", () => {
   test("renders search bar with input field and buttons", () => {
     render(
       <RecoilRoot>
-        <VenueSearchAndFiltersBar />
+        <VenueSearchAndFiltersBar classNames="text-primary-200 text-lg mx-2" />
       </RecoilRoot>
     );
 
@@ -18,7 +18,7 @@ describe("SearchVenueInput Component", () => {
   test("allows user to type in the input field", () => {
     render(
       <RecoilRoot>
-        <VenueSearchAndFiltersBar />
+        <VenueSearchAndFiltersBar classNames="text-primary-200 text-lg mx-2" />
       </RecoilRoot>
     );
 

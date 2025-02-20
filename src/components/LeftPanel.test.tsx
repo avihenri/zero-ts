@@ -3,12 +3,12 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import LeftPanel from "./LeftPanel";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
-import { PANEL_CONTENT } from "../state/consts/mainPanel";
+import { PANEL_CONTENT } from "../state/consts/panels";
 
 describe("LeftPanel Component", () => {
     test("renders left panel when visible", () => {
         render(
-            <RecoilRoot initializeState={({ set }) => set(leftPanelStateAtom, PANEL_CONTENT.MAIN_MENU)}>
+            <RecoilRoot initializeState={({ set }) => set(leftPanelStateAtom, { currentPanel: PANEL_CONTENT.MAIN_MENU, previousPanel: null })}>
                 <LeftPanel />
             </RecoilRoot>
         );
@@ -20,7 +20,7 @@ describe("LeftPanel Component", () => {
 
     test("does not render when panel is closed", () => {
         render(
-            <RecoilRoot initializeState={({ set }) => set(leftPanelStateAtom, PANEL_CONTENT.CLOSED)}>
+            <RecoilRoot initializeState={({ set }) => set(leftPanelStateAtom, { currentPanel: PANEL_CONTENT.CLOSED, previousPanel: null })}>
                 <LeftPanel />
             </RecoilRoot>
         );
@@ -30,7 +30,7 @@ describe("LeftPanel Component", () => {
 
     test("closes panel when close button is clicked", () => {
         render(
-            <RecoilRoot initializeState={({ set }) => set(leftPanelStateAtom, PANEL_CONTENT.MAIN_MENU)}>
+            <RecoilRoot initializeState={({ set }) => set(leftPanelStateAtom, { currentPanel: PANEL_CONTENT.MAIN_MENU, previousPanel: null })}>
                 <LeftPanel />
             </RecoilRoot>
         );

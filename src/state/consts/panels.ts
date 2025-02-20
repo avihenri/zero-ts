@@ -3,6 +3,7 @@ export const PANEL_CONTENT = {
     USER_MENU: 'USER_MENU',
     FILTER_SORT: 'FILTER_SORT',
     VENUE_LIST: 'VENUE_LIST',
+    VIEW_VENUE: 'VIEW_VENUE',
     CLOSED: 'CLOSED',
   } as const;
   

@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import RightPanel from "./RightPanel";
 import { rightPanelStateAtom } from "../state/atoms/rightPanelStateAtom";
-import { PANEL_CONTENT } from "../state/consts/mainPanel";
+import { PANEL_CONTENT } from "../state/consts/panels";
 
 describe("RightPanel Component", () => {
     test("renders right panel when visible", () => {

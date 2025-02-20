@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useRef } from "react";
 import { useRecoilState } from "recoil";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-import { PANEL_CONTENT } from "../state/consts/mainPanel";
+import { PANEL_CONTENT } from "../state/consts/panels";
 import { rightPanelStateAtom } from "../state/atoms/rightPanelStateAtom";
 import UserMenu from "./Navigation/UserMenu";
 

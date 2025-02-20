@@ -21,7 +21,7 @@ export function MenuItem({
   iconClassName,
 }: MenuItemProps) {
   const className = clsx(
-    "p-2 font-semibold rounded-xl my-1 cursor-pointer flex items-center w-full bg-grey-900 hover:scale-[1.02]",
+    "p-2 font-semibold rounded-md my-1 cursor-pointer flex items-center w-full bg-grey-900 hover:scale-[1.02]",
     type === "app"
       ? "text-primary-400 hover:text-primary-300"
       : "text-action-400 hover:text-action-300"

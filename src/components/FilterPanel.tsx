@@ -61,12 +61,14 @@ const FilterPanel = () => {
             className="h-full"
             data-testid="filter-panel"
         >
-        <div className="flex justify-between mb-4 mt-2">
-            <div className="flex">
-                <div className="text-lg font-bold cursor-pointer text-primary-200 mr-1">Filter</div>
+        <div className="pr-4">
+            <div className="flex justify-between mb-4 mt-2">
+                <div className="flex">
+                    <div className="text-lg font-bold cursor-pointer text-primary-200 mr-1">Filter</div>
+                </div>
             </div>
+            <Divider />
         </div>
-        <Divider />
 
         <div className="h-[90%] overflow-auto">
             {selectedTagCount > 0 && (

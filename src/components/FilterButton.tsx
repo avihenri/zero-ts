@@ -2,19 +2,24 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { selectedTagCountStateAtom } from "../state/atoms/selectedTagCountStateAtom";
 import { BiSliderAlt } from "react-icons/bi";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
-import { PANEL_CONTENT } from "../state/consts/mainPanel";
+import { PANEL_CONTENT } from "../state/consts/panels";
+import { rightPanelStateAtom } from "../state/atoms/rightPanelStateAtom";
 
 const FilterButton = () => {
     const selectedTagCount = useRecoilValue(selectedTagCountStateAtom);
-    const setRightPanel = useSetRecoilState(leftPanelStateAtom);
-
+    const setLeftPanel = useSetRecoilState(leftPanelStateAtom);
+    const setRightPanel = useSetRecoilState(rightPanelStateAtom);
     return (
         <button
             type="button"
             className="flex justify-center items-center relative group mr-1 px-2 bg-grey-950 p-1 border border-primary-200 rounded-md shadow-md"
             onClick={(e) => {
                 e.stopPropagation();
-                setRightPanel((prev) => prev === PANEL_CONTENT.FILTER_SORT ? PANEL_CONTENT.CLOSED : PANEL_CONTENT.FILTER_SORT);
+                setRightPanel(PANEL_CONTENT.CLOSED);
+                setLeftPanel((prev) => ({
+                    currentPanel: prev.currentPanel === PANEL_CONTENT.FILTER_SORT ? PANEL_CONTENT.CLOSED : PANEL_CONTENT.FILTER_SORT,
+                    previousPanel: prev.currentPanel !== PANEL_CONTENT.CLOSED ? prev.currentPanel : null,
+                }))
             }}
             data-testid="filter-button"
         >
