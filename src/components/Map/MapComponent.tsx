@@ -21,8 +21,7 @@ const MapComponent = () => {
   
     const map = mapRef.current;
     const image = new Image();
-    const pixelRatio = window.devicePixelRatio > 1 ? 4 : 1;
-    image.onload = () => map.addImage("pin", image, { sdf: true, pixelRatio });
+    image.onload = () => map.addImage("pin", image, { sdf: true });
     image.src = Pin;
   };
 
