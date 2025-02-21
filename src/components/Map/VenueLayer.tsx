@@ -37,19 +37,11 @@ const markerLayer = (isInactive = false, highlightedId: string | null = null): L
   source: "venues",
   type: "symbol",
   layout: {
-    // "icon-size": [
-    //   "case",
-    //   ["==", ["get", "id"], highlightedId],
-    //   1.15,
-    //   1.,
-    // ],
     "icon-size": [
-      "interpolate",
-      ["linear"],
-      ["zoom"],
-      3, window.innerWidth < 768 ? 0.6 : 0.3,
-      8, window.innerWidth < 768 ? 0.6 : 0.3,
-      14, window.innerWidth < 768 ? 0.6 : 0.3
+      "case",
+      ["==", ["get", "id"], highlightedId],
+      1.15,
+      1,
     ],
     "icon-image": ["get", "marker"],
     "icon-allow-overlap": true,
