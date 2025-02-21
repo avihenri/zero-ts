@@ -25,7 +25,7 @@ export function Tabs({
             value={tab.value}
             className={clsx(
               "flex-1 px-4 py-2 text-center rounded-md transition bg-grey-950 font-semibold",
-              `data-[state=active]:bg-action-400 data-[state=active]:text-gray-900`,
+              `data-[state=active]:bg-secondary-400 data-[state=active]:text-gray-900`,
               "data-[state=inactive]:bg-grey-900 data-[state=inactive]:text-grey-400"
             )}
           >

@@ -42,7 +42,7 @@ const TopNavBar = () => {
         onClick={handleMenuIconClick}
         data-testid="menu-icon-button"
       >
-        <FaBars data-testid="menu-icon" className="text-2xl cursor-pointer hover:text-primary-600 hover:scale-105" />
+        <FaBars data-testid="menu-icon" className="text-2xl cursor-pointer hover:text-primary-400 hover:scale-105" />
       </button>
 
       {/* TODO: add logo below */}
@@ -58,7 +58,7 @@ const TopNavBar = () => {
         onClick={handleUserIconClick}
         data-testid="user-icon-button"
       >
-        <FaUserCircle data-testid="user-icon" className="text-2xl cursor-pointer hover:text-primary-600 hover:scale-105" />
+        <FaUserCircle data-testid="user-icon" className="text-2xl cursor-pointer hover:text-primary-400 hover:scale-105" />
       </button>
     </nav>
   );

@@ -21,7 +21,8 @@ const MapComponent = () => {
   
     const map = mapRef.current;
     const image = new Image();
-    image.onload = () => map.addImage("pin", image, { sdf: true });
+    const pixelRatio = window.devicePixelRatio > 1 ? 3 : 1;
+    image.onload = () => map.addImage("pin", image, { sdf: true, pixelRatio });
     image.src = Pin;
   };
 
@@ -38,7 +39,7 @@ const MapComponent = () => {
         attributionControl={true}
       >
         <Marker longitude={-3.439} latitude={56.396}>
-          <div className="bg-action-500 w-3 h-3 rounded-full border-2 border-white"></div>
+          <div className="bg-secondary-500 w-3 h-3 rounded-full border-2 border-white"></div>
         </Marker>
 
         <VenueLayer />

@@ -25,11 +25,11 @@ const FilterButton = () => {
         >
             {selectedTagCount > 0 && (
                 <span
-                    className="absolute text-xs -top-2 -left-2 px-1 uppercase text-grey-950 bg-action-500 rounded-full font-black"
+                    className="absolute text-[12px] -top-2 -left-2 px-1 text-white bg-secondary-500 rounded-md font-semibold"
                     data-testid="selected-tag-count"
                 >{selectedTagCount}</span>
             )}
-            <BiSliderAlt className="text-primary-200 text-lg group-hover:text-primary-600" data-testid="filter-icon" />
+            <BiSliderAlt className="text-primary-200 text-lg group-hover:text-primary-400" data-testid="filter-icon" />
         </button>
     );
 };

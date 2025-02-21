@@ -21,8 +21,8 @@ const VenueListButton = () => {
             }}
             data-testid="venue-list-button"
         >
-            <FaList className="text-primary-200 group-hover:text-primary-600" data-testid="venue-list-icon" />
-            <span className="text-primary-200 text-sm group-hover:text-primary-600 ml-2 font-semibold" data-testid="venue-list-text">Venue List</span>
+            <FaList className="text-primary-200 group-hover:text-primary-400" data-testid="venue-list-icon" />
+            <span className="text-primary-200 text-sm group-hover:text-primary-400 ml-2 font-semibold" data-testid="venue-list-text">Venue List</span>
         </button>
     );
 };
