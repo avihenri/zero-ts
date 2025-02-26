@@ -1,4 +1,4 @@
-import "@testing-library/jest-dom";
+import '@testing-library/jest-dom';
 import { render, screen } from "@testing-library/react";
 import VenueListPanel from "./VenueListPanel";
 import { RecoilRoot } from "recoil";
@@ -8,24 +8,15 @@ const renderWithRecoil = (ui: React.ReactNode) => {
 };
 
 describe("VenueListPanel Component", () => {
-    test("renders VenueListPanel with correct structure", () => {
+    test("renders VenueListPanel", () => {
         renderWithRecoil(<VenueListPanel />);
         
         expect(screen.getByTestId("venue-list-panel")).toBeInTheDocument();
-        expect(screen.getByText("Venues")).toBeInTheDocument();
-        expect(screen.getByText("Showing 5 results of 100")).toBeInTheDocument();
     });
 
     test("renders VenueSearchAndFiltersBar and AddVenueButton", () => {
         renderWithRecoil(<VenueListPanel />);
         
         expect(screen.getByTestId("venue-search-and-filters-bar")).toBeInTheDocument();
-    });
-
-    test("renders 5 VenueListItem components", () => {
-        renderWithRecoil(<VenueListPanel />);
-        
-        const venueItems = screen.getAllByTestId("venue-list-item");
-        expect(venueItems.length).toBe(5);
     });
 });

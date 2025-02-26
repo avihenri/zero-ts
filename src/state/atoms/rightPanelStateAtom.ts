@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
-import { PANEL_CONTENT, PanelView } from '../consts/panels';
+import { PANEL_CONTENT, PanelContent } from '../consts/panels';
 
-export const rightPanelStateAtom = atom<PanelView>({
+export const rightPanelStateAtom = atom<PanelContent>({
   key: 'rightPanelStateAtom',
   default: PANEL_CONTENT.CLOSED,
 });

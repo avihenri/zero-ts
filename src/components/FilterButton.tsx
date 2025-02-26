@@ -1,14 +1,15 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { selectedTagCountStateAtom } from "../state/atoms/selectedTagCountStateAtom";
 import { BiSliderAlt } from "react-icons/bi";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
 import { PANEL_CONTENT } from "../state/consts/panels";
 import { rightPanelStateAtom } from "../state/atoms/rightPanelStateAtom";
+import { selectedTagsStateAtom } from "../state/atoms/selectedTagsStateAtom";
 
 const FilterButton = () => {
-    const selectedTagCount = useRecoilValue(selectedTagCountStateAtom);
+    const selectedTags = useRecoilValue(selectedTagsStateAtom);
     const setLeftPanel = useSetRecoilState(leftPanelStateAtom);
     const setRightPanel = useSetRecoilState(rightPanelStateAtom);
+    
     return (
         <button
             type="button"
@@ -23,11 +24,11 @@ const FilterButton = () => {
             }}
             data-testid="filter-button"
         >
-            {selectedTagCount > 0 && (
+            {selectedTags.length > 0 && (
                 <span
                     className="absolute text-[12px] -top-2 -left-2 px-1 text-white bg-secondary-500 rounded-md font-semibold"
                     data-testid="selected-tag-count"
-                >{selectedTagCount}</span>
+                >{selectedTags.length}</span>
             )}
             <BiSliderAlt className="text-primary-200 text-lg group-hover:text-primary-400" data-testid="filter-icon" />
         </button>

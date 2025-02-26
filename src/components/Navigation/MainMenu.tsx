@@ -13,19 +13,10 @@ const MainMenu = () => {
 
     return (
         <div
-            className="flex flex-col justify-between h-full pr-4"
+            className="flex flex-col justify-between h-[90%] pr-4"
             data-testid="main-menu"
         >
             <div>
-                <div
-                    className="flex justify-between mb-4 mt-2"
-                    data-testid="main-menu-header"
-                >
-                    <div className="flex">
-                        <div className="text-lg font-bold cursor-pointer text-primary-200 mr-1">Menu</div>
-                    </div>
-                </div>
-                <Divider />
                 <MenuItem
                     type="app"
                     onClick={handleClick}

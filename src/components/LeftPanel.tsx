@@ -1,25 +1,27 @@
 import clsx from "clsx";
 import { useRef } from "react";
-import { useRecoilState } from "recoil";
-import { PANEL_CONTENT } from "../state/consts/panels";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { PANEL_CONTENT, PANEL_TITLES } from "../state/consts/panels";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
 import MainMenu from "./Navigation/MainMenu";
 import FilterPanel from "./FilterPanel";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import VenueListPanel from "./VenueListPanel";
+import VenueDetailsPanel from "./VenueDetailsPanel";
+import AddVenueFormPanel from "./AddVenueFormPanel";
+import Divider from "./Common/Divider";
+import { selectedVenueDetailsStateAtom } from "../state/atoms/selectedVenueDetailsStateAtom";
 
 const LeftPanel = () => {
     const [{ currentPanel, previousPanel }, setLeftPanel] = useRecoilState(leftPanelStateAtom);
+    const setSelectedVenueDetails = useSetRecoilState(selectedVenueDetailsStateAtom);
     const isVisible = currentPanel !== PANEL_CONTENT.CLOSED;
     const panelRef = useRef<HTMLDivElement | null>(null);
-
-    const isVenueListPreviousPanel = previousPanel === PANEL_CONTENT.VENUE_LIST;
-    const shouldRestoreVenueList =
-        isVenueListPreviousPanel &&
-            (currentPanel === PANEL_CONTENT.FILTER_SORT || currentPanel === PANEL_CONTENT.VIEW_VENUE);
+    const panelTitle = PANEL_TITLES[currentPanel] || '';
     
     const closePanel = () => {
-        if (shouldRestoreVenueList) {
+        setSelectedVenueDetails(null);
+        if (previousPanel === PANEL_CONTENT.VENUE_LIST) {
             setLeftPanel({ currentPanel: PANEL_CONTENT.VENUE_LIST, previousPanel: null });
             return;
         }
@@ -39,18 +41,30 @@ const LeftPanel = () => {
             )}
             data-testid="left-panel"
         >
-            <button
-                onClick={closePanel}
-                className="absolute top-6 right-4 p-1 rounded-full text-grey-400 hover:bg-grey-700 transition"
-                aria-label="Close left panel"
-                data-testid="close-left-panel"
-            >
-                <IoMdCloseCircleOutline className="text-2xl" />
-            </button>
+            <div className="pr-4">
+                <div className="flex justify-between mb-4 mt-2">
+                    <div className="flex">
+                        <div className="text-lg font-bold cursor-pointer text-primary-200 mr-1">{ panelTitle }</div>
+                    </div>
+                </div>
+
+                <button
+                    onClick={closePanel}
+                    className="absolute top-6 right-4 p-1 rounded-full text-grey-400 hover:bg-grey-700 transition"
+                    aria-label="Close left panel"
+                    data-testid="close-left-panel"
+                >
+                    <IoMdCloseCircleOutline className="text-2xl" />
+                </button>
+
+                <Divider />
+            </div>
 
             {currentPanel === PANEL_CONTENT.MAIN_MENU && <MainMenu />}
             {currentPanel === PANEL_CONTENT.FILTER_SORT && <FilterPanel />}
             {currentPanel === PANEL_CONTENT.VENUE_LIST && <VenueListPanel />}
+            {currentPanel === PANEL_CONTENT.VIEW_VENUE && <VenueDetailsPanel />}
+            {currentPanel === PANEL_CONTENT.ADD_VENUE && <AddVenueFormPanel />}
         </div>
     );
 };

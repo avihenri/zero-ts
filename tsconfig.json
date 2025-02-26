@@ -2,7 +2,10 @@
   "files": [],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "module": "esnext",  // or "es2020", "node16", or "nodenext"
+    "moduleResolution": "node",
+    "target": "esnext"
   },
   "references": [
     { "path": "./tsconfig.app.json" },

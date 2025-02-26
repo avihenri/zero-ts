@@ -4,8 +4,18 @@ export const PANEL_CONTENT = {
     FILTER_SORT: 'FILTER_SORT',
     VENUE_LIST: 'VENUE_LIST',
     VIEW_VENUE: 'VIEW_VENUE',
+    ADD_VENUE: 'ADD_VENUE',
     CLOSED: 'CLOSED',
   } as const;
+
+  export type PanelContent = keyof typeof PANEL_CONTENT;
+
+  export const PANEL_TITLES: Record<string, string> = {
+    [PANEL_CONTENT.MAIN_MENU]: 'Menu',
+    [PANEL_CONTENT.FILTER_SORT]: 'Filter',
+    [PANEL_CONTENT.VENUE_LIST]: 'Venues',
+    [PANEL_CONTENT.VIEW_VENUE]: 'Venue Details',
+    [PANEL_CONTENT.ADD_VENUE]: 'Add Venue',
+  };
   
-  export type PanelView = keyof typeof PANEL_CONTENT;
   

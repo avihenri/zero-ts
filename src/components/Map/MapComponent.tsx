@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import Map, { MapRef, Marker, NavigationControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Pin from "../../assets/map-marker.svg";
-import VenueLayer from "./VenueLayer";
+// import VenueLayer from "./VenueLayer";
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -41,7 +41,7 @@ const MapComponent = () => {
           <div className="bg-secondary-500 w-3 h-3 rounded-full border-2 border-white"></div>
         </Marker>
 
-        <VenueLayer />
+        {/* <VenueLayer /> */}
 
         <NavigationControl position='bottom-right' />
       </Map>

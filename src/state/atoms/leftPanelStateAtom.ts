@@ -1,9 +1,9 @@
 import { atom } from 'recoil';
-import { PANEL_CONTENT, PanelView } from '../consts/panels';
+import { PANEL_CONTENT, PanelContent } from '../consts/panels';
 
 interface PanelState {
-  currentPanel: PanelView;
-  previousPanel: PanelView | null;
+  currentPanel: PanelContent;
+  previousPanel: PanelContent | null;
 }
 
 export const leftPanelStateAtom = atom<PanelState>({
