@@ -13,7 +13,7 @@ export const tagsGroupedByTypeSelector = selector<TagsByType>({
       const tags = get(tagsStateAtom);
   
       const grouped = tags.reduce<TagsByType>((groupedTags, tag) => {
-        const typeName = tag.type.name;
+        const typeName = tag.type?.name || 'Other';
   
         if (!groupedTags[typeName]) {
           groupedTags[typeName] = [];
