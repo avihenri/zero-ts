@@ -38,7 +38,7 @@ function App() {
   }, [setTags, setVenueTotal, setVenues]);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-dvh">
       <TopNavBar />
       <LoginSignUpDialog />
 
