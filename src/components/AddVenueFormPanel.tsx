@@ -6,10 +6,10 @@ const AddVenueFormPanel = () => {
     return (
         <div
             ref={panelRef}
-            className="h-full"
+            className="h-[90%]"
             data-testid="venue-details-panel"
         >
-            <div className="h-[85%] overflow-auto pr-4">
+            <div className="h-full overflow-auto pr-4">
                 
             </div>
         </div>

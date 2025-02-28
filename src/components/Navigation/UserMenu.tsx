@@ -10,7 +10,7 @@ const UserMenu = () => {
 
     return (
         <div
-            className="flex flex-col justify-between h-[90%]"
+            className="flex flex-col justify-between h-full"
             data-testid="user-menu"
         >
                 <div

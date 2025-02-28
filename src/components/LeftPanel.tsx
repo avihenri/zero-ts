@@ -30,18 +30,17 @@ const LeftPanel = () => {
     };
 
     return (
-        <div
+        <aside
             ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-hidden={!isVisible}
             className={clsx(
-                'fixed left-0 top-0 bottom-0 w-full sm:w-1/3 sm:min-w-96 bg-grey-950 text-grey-500 py-4 pl-4 transition-transform duration-300 ease-in-out z-40',
+                'absolute top-0 left-0 bottom-0 w-full sm:w-1/3 sm:min-w-96 max-h-[calc(100vh-4rem)] h-[calc(100vh-4rem)] overflow-hidden bg-grey-950 text-grey-500 py-4 pl-4  transition-transform duration-300 ease-in-out z-40',
                 isVisible ? 'translate-x-0' : '-translate-x-full'
             )}
             data-testid="left-panel"
         >
-            <div className="h-16"></div>
             <div className="pr-4">
                 <div className="flex justify-between">
                     <div className="flex">
@@ -51,7 +50,7 @@ const LeftPanel = () => {
 
                 <button
                     onClick={closePanel}
-                    className="absolute top-20 right-4 p-1 rounded-full text-grey-400 hover:bg-grey-700 transition"
+                    className="absolute top-4 right-4 p-1 rounded-full text-grey-400 hover:bg-grey-700 transition"
                     aria-label="Close left panel"
                     data-testid="close-left-panel"
                 >
@@ -66,7 +65,7 @@ const LeftPanel = () => {
             {currentPanel === PANEL_CONTENT.VENUE_LIST && <VenueListPanel />}
             {currentPanel === PANEL_CONTENT.VIEW_VENUE && <VenueDetailsPanel />}
             {currentPanel === PANEL_CONTENT.ADD_VENUE && <AddVenueFormPanel />}
-        </div>
+        </aside>
     );
 };
 

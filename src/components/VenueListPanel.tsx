@@ -27,10 +27,10 @@ const VenueListPanel = () => {
     return (
         <div
             ref={panelRef}
-            className="h-full"
+            className="h-[92%]"
             data-testid="venue-list-panel"
         >
-            <div className="h-[85%] overflow-auto pr-4">
+            <div className="h-full overflow-auto pr-4 pb-4">
                 <div className="p-2">
                     <VenueSearchAndFiltersBar classNames="w-full" />
                     <AddVenueButton />
