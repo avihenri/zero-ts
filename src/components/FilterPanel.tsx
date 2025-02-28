@@ -52,7 +52,7 @@ const FilterPanel = () => {
             className="h-full"
             data-testid="filter-panel"
         >
-        <div className="h-[90%] overflow-auto">
+        <div className="h-[85%] overflow-auto">
             {selectedTags.length > 0 && (
                 <button type="button" className="hover:text-primary-50 text-center w-full" onClick={() => setSelectedTags([])}>Clear {selectedTags.length} filters</button>
             )}

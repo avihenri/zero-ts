@@ -10,11 +10,11 @@ const UserMenu = () => {
 
     return (
         <div
-            className="flex flex-col justify-between h-full"
+            className="flex flex-col justify-between h-[90%]"
             data-testid="user-menu"
         >
                 <div
-                    className="mt-2 w-full flex justify-end"
+                    className="w-full flex justify-end"
                     data-testid="user-menu-dropdown-header"
                 >
                     <button
@@ -24,15 +24,17 @@ const UserMenu = () => {
                         data-testid="user-icon-button"
                     >
                         <span
-                            className="text-lg font-semibold text-primary-200 ml-2 float-right mr-2"
+                            className="text-lg font-semibold text-primary-200 ml-2 float-right mr-2 hover:text-primary-400"
                             data-testid="user-name"
-                        >Avihenri</span>
+                        >
+                            Avihenri
+                        </span>
                     </button>
                 </div>
 
                 <Divider />
                 <div
-                    className="flex flex-col justify-between h-[88%]"
+                    className="flex flex-col justify-between h-full"
                     data-testid="user-menu-dropdown-content"
                 >
                     <div>

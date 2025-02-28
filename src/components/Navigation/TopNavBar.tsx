@@ -33,7 +33,7 @@ const TopNavBar = () => {
 
   return (
     <nav
-      className="flex justify-between items-center bg-dark p-4 text-light text-primary-200 h-16"
+      className="flex justify-between items-center bg-dark p-4 text-light text-primary-200 h-16 z-50 border-b border-grey-900"
       role="navigation"
       data-testid="top-nav-bar"
     >

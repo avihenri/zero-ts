@@ -30,7 +30,7 @@ const VenueListPanel = () => {
             className="h-full"
             data-testid="venue-list-panel"
         >
-            <div className="h-[90%] overflow-auto pr-4">
+            <div className="h-[85%] overflow-auto pr-4">
                 <div className="p-2">
                     <VenueSearchAndFiltersBar classNames="w-full" />
                     <AddVenueButton />

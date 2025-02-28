@@ -36,13 +36,14 @@ const LeftPanel = () => {
             aria-modal="true"
             aria-hidden={!isVisible}
             className={clsx(
-                'fixed left-0 top-16 bottom-0 w-full sm:w-1/3 sm:min-w-96 bg-grey-950 text-grey-500 shadow-lg py-4 pl-4 transition-transform duration-300 ease-in-out z-50',
+                'fixed left-0 top-0 bottom-0 w-full sm:w-1/3 sm:min-w-96 bg-grey-950 text-grey-500 py-4 pl-4 transition-transform duration-300 ease-in-out z-40',
                 isVisible ? 'translate-x-0' : '-translate-x-full'
             )}
             data-testid="left-panel"
         >
+            <div className="h-16"></div>
             <div className="pr-4">
-                <div className="flex justify-between mb-4 mt-2">
+                <div className="flex justify-between">
                     <div className="flex">
                         <div className="text-lg font-bold cursor-pointer text-primary-200 mr-1">{ panelTitle }</div>
                     </div>
@@ -50,7 +51,7 @@ const LeftPanel = () => {
 
                 <button
                     onClick={closePanel}
-                    className="absolute top-6 right-4 p-1 rounded-full text-grey-400 hover:bg-grey-700 transition"
+                    className="absolute top-20 right-4 p-1 rounded-full text-grey-400 hover:bg-grey-700 transition"
                     aria-label="Close left panel"
                     data-testid="close-left-panel"
                 >

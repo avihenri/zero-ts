@@ -9,7 +9,7 @@ const AddVenueFormPanel = () => {
             className="h-full"
             data-testid="venue-details-panel"
         >
-            <div className="h-[90%] overflow-auto pr-4">
+            <div className="h-[85%] overflow-auto pr-4">
                 
             </div>
         </div>

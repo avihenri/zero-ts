@@ -16,7 +16,7 @@ const VenueListItem = ({ venue }: VenueListItemProps) => {
 
     return (
         <div
-            className="w-full min-h-28 p-2 my-2 rounded-md flex flex-col justify-between bg-grey-900"
+            className="w-full min-h-24 p-2 my-2 rounded-md flex flex-col justify-between bg-grey-900"
             data-testid="venue-list-item"
         >
             <div className="w-full" data-testid="venue-list-header">
