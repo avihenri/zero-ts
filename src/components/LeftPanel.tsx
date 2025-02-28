@@ -36,7 +36,7 @@ const LeftPanel = () => {
             aria-modal="true"
             aria-hidden={!isVisible}
             className={clsx(
-                'fixed left-0 top-0 h-full w-full sm:w-1/3 sm:min-w-96 bg-grey-950 text-grey-500 shadow-lg py-4 pl-4 transition-transform duration-300 ease-in-out z-50',
+                'fixed left-0 top-16 bottom-0 w-full sm:w-1/3 sm:min-w-96 bg-grey-950 text-grey-500 shadow-lg py-4 pl-4 transition-transform duration-300 ease-in-out z-50',
                 isVisible ? 'translate-x-0' : '-translate-x-full'
             )}
             data-testid="left-panel"

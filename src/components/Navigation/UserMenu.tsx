@@ -1,7 +1,7 @@
 import Divider from "../Common/Divider";
 import { MenuItem } from "./MenuItem";
 import { MdFavorite, MdLogout, MdManageAccounts } from "react-icons/md";
-import { FaUserCircle, FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 
 const UserMenu = () => {
     const handleClick = () => {
@@ -27,7 +27,6 @@ const UserMenu = () => {
                             className="text-lg font-semibold text-primary-200 ml-2 float-right mr-2"
                             data-testid="user-name"
                         >Avihenri</span>
-                        <FaUserCircle data-testid="user-icon" className="text-2xl cursor-pointer hover:scale-105" />
                     </button>
                 </div>
 

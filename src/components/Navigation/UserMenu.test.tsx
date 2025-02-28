@@ -16,7 +16,7 @@ describe("UserMenu Component", () => {
         expect(screen.getByTestId("user-menu-dropdown-content")).toBeInTheDocument();
     });
 
-    test("renders user icon button and user name", () => {
+    test("renders user name", () => {
         render(
             <RecoilRoot>
                 <UserMenu />
@@ -24,7 +24,6 @@ describe("UserMenu Component", () => {
         );
         
         expect(screen.getByTestId("user-icon-button")).toBeInTheDocument();
-        expect(screen.getByTestId("user-icon")).toBeInTheDocument();
         expect(screen.getByTestId("user-name")).toBeInTheDocument();
     });
 
