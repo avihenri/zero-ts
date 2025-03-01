@@ -1,7 +1,6 @@
 import Divider from "../Common/Divider";
 import { MenuItem } from "./MenuItem";
 import { MdFavorite, MdLogout, MdManageAccounts } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
 
 const UserMenu = () => {
     const handleClick = () => {
@@ -10,7 +9,7 @@ const UserMenu = () => {
 
     return (
         <div
-            className="flex flex-col justify-between h-full"
+            className="flex flex-col justify-between  h-full max-h-[calc(100vh-6rem)]"
             data-testid="user-menu"
         >
                 <div
@@ -45,14 +44,6 @@ const UserMenu = () => {
                             iconClassName="mr-2"
                         >
                             Account
-                        </MenuItem>
-                        <MenuItem
-                            type="app"
-                            onClick={handleClick}
-                            icon={<FaUsers />}
-                            iconClassName="mr-2"
-                        >
-                            Profiles
                         </MenuItem>
                         <MenuItem
                             type="app"

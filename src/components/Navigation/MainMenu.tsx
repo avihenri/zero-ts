@@ -1,4 +1,4 @@
-import { IoIosDocument, IoMdSettings } from "react-icons/io";
+import { IoIosDocument } from "react-icons/io";
 import Divider from "../Common/Divider";
 import { MenuItem } from "./MenuItem";
 import { FaInfo, FaQuestion, FaSearch } from "react-icons/fa";
@@ -13,7 +13,7 @@ const MainMenu = () => {
 
     return (
         <div
-            className="flex flex-col justify-between h-[90%] pr-4"
+            className="flex flex-col justify-between h-full max-h-[calc(100vh-10rem)] pr-4"
             data-testid="main-menu"
         >
             <div>
@@ -37,14 +37,6 @@ const MainMenu = () => {
             
             <div>
                 <Divider />
-                <MenuItem
-                    type="system"
-                    onClick={handleClick}
-                    icon={<IoMdSettings />}
-                    iconClassName="mr-2"
-                >
-                    Settings
-                </MenuItem>
                 <MenuItem
                     type="system"
                     onClick={handleClick}
