@@ -13,7 +13,7 @@ export type  TagOption = {
 export type TagSelectorType = {
     heading: string;
     tags: TagOption[];
-    selectedTags: string[];
+    selectedTagIds: string[];
     setSelectedTags: (tags: string[]) => void;
 }
 
@@ -35,7 +35,7 @@ export type VenueAddressType = {
 export type VenueFormDataType = {
   id?: string|null;
   name: string;
-  venueType: string;
+  venueTypeId: string;
   address: string;
   housenumber?: string|null;
   street?: string|null;
@@ -48,7 +48,7 @@ export type VenueFormDataType = {
   lon: number|null;
   phone?: number|null;
   website?: string|null;
-  selectedTags: string[];
+  selectedTagIds: string[];
 };
 
   

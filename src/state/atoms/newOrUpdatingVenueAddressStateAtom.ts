@@ -6,12 +6,12 @@ export const newOrUpdatingVenueAddressStateAtom = atom<VenueFormDataType>({
   default: {
     id: null,
     name: "",
-    venueType: "",
+    venueTypeId: "",
     address: "",
     lat: null,
     lon: null,
     phone: null,
     website: "",
-    selectedTags: [],
+    selectedTagIds: [],
   } as VenueFormDataType,
 });

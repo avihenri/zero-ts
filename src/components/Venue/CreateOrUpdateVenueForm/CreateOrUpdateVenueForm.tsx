@@ -121,10 +121,10 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                         </label>
                         <SelectInput
                             options={venueTypes}
-                            value={formData?.venueType}
-                            onChange={(value) => handleInputChange("venueType", value)}
+                            value={formData?.venueTypeId}
+                            onChange={(value) => handleInputChange("venueTypeId", value)}
                             placeholder="Choose type"
-                            className={errors.venueType ? "border-red-500 bg-red-50" : ""}
+                            className={errors.venueTypeId ? "border-red-500 bg-red-50" : ""}
                         />
                     </div>
 
@@ -199,29 +199,29 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                     Select available options<span className="text-red-400">*</span><br />
                     <span className={clsx(
                         "text-xs px-2",
-                        errors.selectedTags ? 'text-red-400' : 'text-action-400'
+                        errors.selectedTagIds ? 'text-red-400' : 'text-action-400'
                     )}>At least one option must be selected:</span>
                 </h2>
                 <div className="px-2">
                     <TagSelector
                         heading="Dietaries"
                         tags={dietaries}
-                        selectedTags={formData?.selectedTags ?? []}
-                        setSelectedTags={(tags) => handleInputChange("selectedTags", tags)}
+                        selectedTagIds={formData?.selectedTagIds ?? []}
+                        setSelectedTags={(tags) => handleInputChange("selectedTagIds", tags)}
                     />
                     <Divider classNames="w-44" />
                     <TagSelector
                         heading="Non-alcoholic drink type"
                         tags={zeroDrinkTypes}
-                        selectedTags={formData?.selectedTags ?? []}
-                        setSelectedTags={(tags) => handleInputChange("selectedTags", tags)}
+                        selectedTagIds={formData?.selectedTagIds ?? []}
+                        setSelectedTags={(tags) => handleInputChange("selectedTagIds", tags)}
                     />
                     <Divider classNames="w-44" />
                     <TagSelector
                         heading="Non-alcoholic drinks"
                         tags={zeroDrinks}
-                        selectedTags={formData?.selectedTags ?? []}
-                        setSelectedTags={(tags) => handleInputChange("selectedTags", tags)}
+                        selectedTagIds={formData?.selectedTagIds ?? []}
+                        setSelectedTags={(tags) => handleInputChange("selectedTagIds", tags)}
                     />
                 </div>
             </div>

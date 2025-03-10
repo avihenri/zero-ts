@@ -16,7 +16,7 @@ const VenueDetailsPanel = () => {
             className="h-[90%]"
             data-testid="venue-details-panel"
         >
-            <div className="h-full overflow-auto pr-4">
+            <div className="h-full overflow-auto pr-4 pb-16">
                 <div className="w-full" data-testid="venue-list-header">
                     <div
                         className="text-primary-400 text-lg font-semibold uppercase px-2"

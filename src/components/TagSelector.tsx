@@ -4,7 +4,7 @@ import MultiSelectRadioGroup from "./Common/MultiSelectRadioGroup";
 const TagSelector = ({
     heading,
     tags,
-    selectedTags,
+    selectedTagIds,
     setSelectedTags
 } : TagSelectorType) => {
     return (
@@ -13,7 +13,7 @@ const TagSelector = ({
             <div className="px-2">
                 <MultiSelectRadioGroup
                     options={tags}
-                    selectedValues={selectedTags}
+                    selectedValues={selectedTagIds}
                     setSelectedValues={setSelectedTags}
                 />
             </div>

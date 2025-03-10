@@ -61,7 +61,7 @@ const FilterPanel = () => {
                 <TagSelector
                     heading="Filter by venue type"
                     tags={venueTypes}
-                    selectedTags={selectedTags}
+                    selectedTagIds={selectedTags}
                     setSelectedTags={setSelectedTags}
                 />
     
@@ -70,7 +70,7 @@ const FilterPanel = () => {
                 <TagSelector
                     heading="Filter by dietary type"
                     tags={dietaries}
-                    selectedTags={selectedTags}
+                    selectedTagIds={selectedTags}
                     setSelectedTags={setSelectedTags}
                 />
     
@@ -79,7 +79,7 @@ const FilterPanel = () => {
                 <TagSelector
                     heading="Filter by non-alcoholic drink type"
                     tags={zeroDrinkTypes}
-                    selectedTags={selectedTags}
+                    selectedTagIds={selectedTags}
                     setSelectedTags={setSelectedTags}
                 />
         
@@ -88,7 +88,7 @@ const FilterPanel = () => {
                 <TagSelector
                     heading="Filter by non-alcoholic drinks"
                     tags={zeroDrinks}
-                    selectedTags={selectedTags}
+                    selectedTagIds={selectedTags}
                     setSelectedTags={setSelectedTags}
                 />
             </Form.Root>

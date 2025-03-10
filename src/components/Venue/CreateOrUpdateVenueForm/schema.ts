@@ -5,7 +5,7 @@ export const schema = Joi.object({
         'any.required': 'Name is required.',
         'string.base': 'Name must be a string'
       }),
-    venueType: Joi.string().empty("").required().messages({
+    venueTypeId: Joi.string().empty("").required().messages({
         'any.required': 'Venue Type is required.',
         'string.base': 'Venue Type must be a string'
     }),
@@ -64,7 +64,7 @@ export const schema = Joi.object({
         .messages({
             'string.uri': 'Website must be a valid URL'
     }),
-    selectedTags: Joi.array().required().min(1).messages({
+    selectedTagIds: Joi.array().required().min(1).messages({
         "any.required": "At least one available option must be selected.",
         "array.min": "At least one available option must be selected.",
     }),
