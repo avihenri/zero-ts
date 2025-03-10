@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useSetRecoilState } from "recoil";
 import { newOrUpdatingVenueAddressStateAtom } from "../../state/atoms/newOrUpdatingVenueAddressStateAtom";
 import { VenueFormDataType } from "../../ts/types";
+import { ENV } from "../../config/env";
 
 interface GeoapifyOption {
   id: string;
@@ -42,6 +43,9 @@ interface GeoapifySearchProps {
   inputClassNames?: string;
 }
 
+const GEOAPIFY_SEARCH_URL = ENV.GEOAPIFY_SEARCH_URL;
+const GEOAPLIFY_API_KEY = ENV.GEOAPLIFY_API_KEY;
+
 const GeoapifySearch: React.FC<GeoapifySearchProps> = ({
   value = "",
   onChange,
@@ -55,8 +59,6 @@ const GeoapifySearch: React.FC<GeoapifySearchProps> = ({
     const [loading, setLoading] = useState(false);
     const setFormData = useSetRecoilState<VenueFormDataType>(newOrUpdatingVenueAddressStateAtom);
 
-    const API_KEY = "61dafe25cb984831bfc58020b170cbac";
-
     useEffect(() => {
         if (inputValue.length < 3) {
         setOptions([]);
@@ -68,9 +70,9 @@ const GeoapifySearch: React.FC<GeoapifySearchProps> = ({
       setLoading(true);
       try {
         const response = await fetch(
-          `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
+          `${GEOAPIFY_SEARCH_URL}?text=${encodeURIComponent(
             inputValue
-          )}&apiKey=${API_KEY}&limit=5&format=json`
+          )}&apiKey=${GEOAPLIFY_API_KEY}&limit=5&format=json`
         );
         const data = await response.json();
 
