@@ -7,7 +7,7 @@ import MapComponent from "../../Map/MapComponent";
 import Divider from "../../Common/Divider";
 import TagSelector from "../../TagSelector";
 import clsx from "clsx";
-import SelectInput from "../../Common/Select";
+import SelectInput from "../../Common/SelectInput";
 import { schema } from "./schema";
 import { venueCoordinatesStateAtom } from "../../../state/atoms/venueCoordinatesStateAtom";
 import { CoordinatesType, VenueAddressType, VenueFormDataType } from "../../../ts/types";
@@ -100,7 +100,7 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
 
     return (
         <Form.Root>
-            <div>
+            <div data-testid="create-update-vernue-form">
                 <div className="px-2">
                     <div className="mb-4">
                         <Input

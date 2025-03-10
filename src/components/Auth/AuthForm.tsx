@@ -68,9 +68,9 @@ const AuthForm = ({ mode }: AuthFormProps) => {
         isRequired
         placeholder="Enter email*"
         value={email}
-        setInputValue={(val) => {
-          if (typeof val === "string") {
-            setEmail(val);
+        setInputValue={(value: string|null) => {
+          if (typeof value === "string") {
+            setEmail(value);
             if (touched.email) setEmailError("");
           }
         }}
@@ -87,9 +87,9 @@ const AuthForm = ({ mode }: AuthFormProps) => {
         isRequired
         placeholder="Enter password*"
         value={password}
-        setInputValue={(val) => {
-          if (typeof val === "string") {
-            setPassword(val);
+        setInputValue={(value: string|null) => {
+          if (typeof value === "string") {
+            setPassword(value);
             if (touched.password) setPasswordError("");
           }
         }}
@@ -110,11 +110,11 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                 isRequired
                 placeholder="Confirm password*"
                 value={confirmPassword}
-                setInputValue={(val) => {
-                if (typeof val === "string") {
-                    setConfirmPassword(val);
-                    if (touched.confirmPassword) setConfirmPasswordError("");
-                }
+                setInputValue={(value: string|null) => {
+                  if (typeof value === "string") {
+                      setConfirmPassword(value);
+                      if (touched.confirmPassword) setConfirmPasswordError("");
+                  }
                 }}
                 onBlur={() => {
                     setTouched((prev) => ({ ...prev, confirmPassword: true }));

@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import SelectInput from "./Select";
+import SelectInput from "./SelectInput";
 
 const mockOptions = [
   { id: "1", name: "Option 1" },

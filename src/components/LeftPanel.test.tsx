@@ -10,7 +10,8 @@ jest.mock("lucide-react", () => ({
     X: () => <svg data-testid="x-icon" />,
 }));
 
-// TODO: fix test!! SVG breaking with jest
+jest.mock("mapbox-gl/dist/mapbox-gl.css", () => ({}));
+
 describe("LeftPanel Component", () => {
     test("renders left panel when visible", () => {
         render(

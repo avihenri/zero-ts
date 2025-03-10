@@ -63,7 +63,7 @@ const Input = <T extends string | number>({
     <FormRadix.Field className="flex flex-col gap-1 w-full" name={name}>
       <div
         className="flex items-baseline justify-between"
-        data-testid="input-label"
+        data-testid={`input-label-${name}`}
       >
         {label && 
           <FormRadix.Label className="text-sm font-medium text-grey-300 mt-2">

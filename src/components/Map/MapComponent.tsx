@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Map, { MapRef, Marker, NavigationControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import Pin from "../../assets/map-marker.svg";
 import { useRecoilState } from "recoil";
 import { venueCoordinatesStateAtom } from "../../state/atoms/venueCoordinatesStateAtom";
 import { CoordinatesType } from "../../ts/types";
@@ -46,14 +45,14 @@ const MapComponent = ({ id } : { id: string}) => {
     zoom: 13,
   });
 
-  const onLoad = () => {
-    if (!mapRef.current) return;
+  // const onLoad = () => {
+  //   if (!mapRef.current) return;
   
-    const map = mapRef.current;
-    const image = new Image();
-    image.onload = () => map.addImage("pin", image, { sdf: true });
-    image.src = Pin;
-  };
+  //   const map = mapRef.current;
+  //   const image = new Image();
+  //   image.onload = () => map.addImage("pin", image, { sdf: true });
+  //   image.src = Pin;
+  // };
 
   useEffect(() => {
     console.log(venueCoordinates);
@@ -73,7 +72,7 @@ const MapComponent = ({ id } : { id: string}) => {
           key={id}
           ref={mapRef}
           {...viewState}
-          onLoad={onLoad}
+          // onLoad={onLoad}
           onMove={(evt) => setViewState(evt.viewState)}
           mapStyle="mapbox://styles/mapbox/dark-v10"
           style={{ width: "100%", height: "100%" }}
