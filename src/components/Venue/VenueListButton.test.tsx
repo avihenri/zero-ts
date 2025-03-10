@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
-import VenueListButton from "../components/VenueListButton";
+import VenueListButton from "./VenueListButton";
 
 const renderWithRecoil = (ui: React.ReactNode) => {
     return render(<RecoilRoot>{ui}</RecoilRoot>);
