@@ -1,8 +1,8 @@
 import { useSetRecoilState } from "recoil";
-import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
-import { PANEL_CONTENT } from "../state/consts/panels";
+import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
+import { PANEL_CONTENT } from "../../state/consts/panels";
 import { FaList } from "react-icons/fa";
-import { rightPanelStateAtom } from "../state/atoms/rightPanelStateAtom";
+import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
 
 const VenueListButton = () => {
     const setLeftPanel = useSetRecoilState(leftPanelStateAtom);

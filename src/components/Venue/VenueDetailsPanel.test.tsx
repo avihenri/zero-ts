@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import VenueDetailsPanel from "./VenueDetailsPanel";
-import { selectedVenueDetailsStateAtom } from "../state/atoms/selectedVenueDetailsStateAtom";
+import { selectedVenueDetailsStateAtom } from "../../state/atoms/selectedVenueDetailsStateAtom";
 
 const mockVenueDetails = {
     id: "1",

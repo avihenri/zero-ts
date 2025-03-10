@@ -1,9 +1,9 @@
 import { useSetRecoilState } from "recoil";
-import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
-import { rightPanelStateAtom } from "../state/atoms/rightPanelStateAtom";
-import { PANEL_CONTENT } from "../state/consts/panels";
-import { Venue } from "../services/venueService";
-import { selectedVenueDetailsStateAtom } from "../state/atoms/selectedVenueDetailsStateAtom";
+import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
+import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
+import { PANEL_CONTENT } from "../../state/consts/panels";
+import { Venue } from "../../services/venueService";
+import { selectedVenueDetailsStateAtom } from "../../state/atoms/selectedVenueDetailsStateAtom";
 
 type VenueListItemProps = {
     venue: Venue;

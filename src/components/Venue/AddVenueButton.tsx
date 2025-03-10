@@ -1,8 +1,8 @@
 import { FaPlus } from "react-icons/fa";
 import { useSetRecoilState } from "recoil";
-import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
-import { rightPanelStateAtom } from "../state/atoms/rightPanelStateAtom";
-import { PANEL_CONTENT } from "../state/consts/panels";
+import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
+import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
+import { PANEL_CONTENT } from "../../state/consts/panels";
 
 // TODO:: implement onClick when creating Venue panel & add tests
 const AddVenueButton = () => {

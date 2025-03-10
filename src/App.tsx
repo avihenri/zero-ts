@@ -1,11 +1,11 @@
 import './App.css';
 import MapComponent from './components/Map/MapComponent';
-import VenueSearchAndFiltersBar from './components/VenueSearchAndFiltersBar';
+import VenueSearchAndFiltersBar from './components/Venue/VenueSearchAndFiltersBar';
 import TopNavBar from './components/Navigation/TopNavBar';
 import LoginSignUpDialog from './components/Auth/LoginSignUpDialog';
 import LeftPanel from './components/LeftPanel';
 import RightPanel from './components/RightPanel';
-import VenueListButton from './components/VenueListButton';
+import VenueListButton from './components/Venue/VenueListButton';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { leftPanelStateAtom } from './state/atoms/leftPanelStateAtom';
 import { PANEL_CONTENT } from './state/consts/panels';

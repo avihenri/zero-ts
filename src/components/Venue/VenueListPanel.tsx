@@ -1,14 +1,14 @@
 import { useRef } from "react";
-import Divider from "./Common/Divider";
+import Divider from "../Common/Divider";
 import VenueSearchAndFiltersBar from "./VenueSearchAndFiltersBar";
 import VenueListItem from "./VenueListItem";
 import AddVenueButton from "./AddVenueButton";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { venuesStateAtom } from "../state/atoms/venuesStateAtom";
-import { venuesTotalStateAtom } from "../state/atoms/venuesTotalStateAtom";
-import { selectedTagsStateAtom } from "../state/atoms/selectedTagsStateAtom";
-import { fetchVenues } from "../services/venueService";
-import { distanceStateAtom } from "../state/atoms/distanceStateAtom";
+import { venuesStateAtom } from "../../state/atoms/venuesStateAtom";
+import { venuesTotalStateAtom } from "../../state/atoms/venuesTotalStateAtom";
+import { selectedTagsStateAtom } from "../../state/atoms/selectedTagsStateAtom";
+import { fetchVenues } from "../../services/venueService";
+import { distanceStateAtom } from "../../state/atoms/distanceStateAtom";
 
 const VenueListPanel = () => {
     const panelRef = useRef<HTMLDivElement | null>(null);

@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import FilterButton from "./FilterButton";
-import SearchVenueInput from "./SearchVenueInput";
+import FilterButton from "../FilterButton";
+import SearchVenueInput from "../SearchVenueInput";
 
 const VenueSearchAndFiltersBar = ({ classNames } : { classNames : string}) => {
   return (

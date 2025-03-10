@@ -1,10 +1,10 @@
 import { useRef } from "react";
-import { selectedVenueDetailsStateAtom } from "../state/atoms/selectedVenueDetailsStateAtom";
+import { selectedVenueDetailsStateAtom } from "../../state/atoms/selectedVenueDetailsStateAtom";
 import { useRecoilValue } from "recoil";
-import Divider from "./Common/Divider";
-import Pill from "./Common/Pill";
+import Divider from "../Common/Divider";
+import Pill from "../Common/Pill";
 import { FaAddressBook, FaGlobe, FaPhone } from "react-icons/fa";
-import { Tag } from "../services/tagService";
+import { Tag } from "../../services/tagService";
 
 const VenueDetailsPanel = () => {
     const panelRef = useRef<HTMLDivElement | null>(null);
