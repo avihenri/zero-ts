@@ -5,6 +5,12 @@ import LeftPanel from "./LeftPanel";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
 import { PANEL_CONTENT } from "../state/consts/panels";
 
+jest.mock("lucide-react", () => ({
+    Check: () => <svg data-testid="check-icon" />,
+    X: () => <svg data-testid="x-icon" />,
+}));
+
+// TODO: fix test!! SVG breaking with jest
 describe("LeftPanel Component", () => {
     test("renders left panel when visible", () => {
         render(

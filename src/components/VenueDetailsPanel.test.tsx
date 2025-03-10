@@ -5,31 +5,31 @@ import VenueDetailsPanel from "./VenueDetailsPanel";
 import { selectedVenueDetailsStateAtom } from "../state/atoms/selectedVenueDetailsStateAtom";
 
 const mockVenueDetails = {
-    id: 1,
+    id: "1",
     name: "Test Venue",
     venue_type: { 
-        id: 1,
+        id: "1",
         name: "Restaurant"
     },
     formatted_address: "123 Test St, Test City",
-    phone: "123-456-7890",
+    phone: 1234567890,
     website: "www.testvenue.com",
     tags_by_type: {
         dietary_types: [
             {
-                id: 1,
+                id: "2",
                 name: "Vegan",
             }
         ],
         zero_drink_types: [
             {
-                id: 1,
+                id: "3",
                 name: "Mocktails"
             }
         ],
         zero_drinks: [
             {
-                id: 1,
+                id: "4",
                 name: "Virgin Mojito"
             }
         ]
@@ -64,7 +64,7 @@ describe("VenueDetailsPanel component", () => {
             </RecoilRoot>
         );
         expect(screen.getByText("123 Test St, Test City")).toBeInTheDocument();
-        expect(screen.getByText("123-456-7890")).toHaveAttribute("href", "tel:123-456-7890");
+        expect(screen.getByText(1234567890)).toHaveAttribute("href", "tel:1234567890");
         expect(screen.getByText("www.testvenue.com")).toHaveAttribute("href", "https://www.testvenue.com");
     });
 

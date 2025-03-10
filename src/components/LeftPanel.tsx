@@ -8,9 +8,9 @@ import FilterPanel from "./FilterPanel";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import VenueListPanel from "./VenueListPanel";
 import VenueDetailsPanel from "./VenueDetailsPanel";
-import AddVenueFormPanel from "./AddVenueFormPanel";
 import Divider from "./Common/Divider";
 import { selectedVenueDetailsStateAtom } from "../state/atoms/selectedVenueDetailsStateAtom";
+import CreateOrUpdateVenuePanel from "./Venue/CreateOrUpdateVenuePanel";
 
 const LeftPanel = () => {
     const [{ currentPanel, previousPanel }, setLeftPanel] = useRecoilState(leftPanelStateAtom);
@@ -64,7 +64,7 @@ const LeftPanel = () => {
             {currentPanel === PANEL_CONTENT.FILTER_SORT && <FilterPanel />}
             {currentPanel === PANEL_CONTENT.VENUE_LIST && <VenueListPanel />}
             {currentPanel === PANEL_CONTENT.VIEW_VENUE && <VenueDetailsPanel />}
-            {currentPanel === PANEL_CONTENT.ADD_VENUE && <AddVenueFormPanel />}
+            {currentPanel === PANEL_CONTENT.ADD_VENUE && <CreateOrUpdateVenuePanel />}
         </aside>
     );
 };

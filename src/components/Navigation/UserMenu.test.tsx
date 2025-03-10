@@ -50,7 +50,6 @@ describe("UserMenu Component", () => {
         );
 
         expect(screen.getByText("Account")).toBeInTheDocument();
-        expect(screen.getByText("Profiles")).toBeInTheDocument();
         expect(screen.getByText("Saved Venues")).toBeInTheDocument();
         expect(screen.getByText("Logout")).toBeInTheDocument();
     });

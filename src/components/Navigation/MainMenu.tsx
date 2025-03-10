@@ -13,7 +13,7 @@ const MainMenu = () => {
 
     return (
         <div
-            className="flex flex-col justify-between h-full max-h-[calc(100vh-10rem)] pr-4"
+            className="flex flex-col justify-between h-[85%] pr-4"
             data-testid="main-menu"
         >
             <div>

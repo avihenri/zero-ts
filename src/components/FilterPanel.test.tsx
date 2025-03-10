@@ -37,7 +37,7 @@ describe("FilterPanel Component", () => {
     renderWithRecoil(<FilterPanel />);
 
     expect(screen.getByText("Filter by venue type")).toBeInTheDocument();
-    expect(screen.getByText("Filter by dietaries")).toBeInTheDocument();
+    expect(screen.getByText("Filter by dietary type")).toBeInTheDocument();
     expect(screen.getByText("Filter by non-alcoholic drink type")).toBeInTheDocument();
     expect(screen.getByText("Filter by non-alcoholic drinks")).toBeInTheDocument();
   });

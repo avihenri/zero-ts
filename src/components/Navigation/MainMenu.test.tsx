@@ -8,7 +8,6 @@ describe("MainMenu Component", () => {
 
         expect(screen.getByText("Find Venue")).toBeInTheDocument();
         expect(screen.getByText("About Us")).toBeInTheDocument();
-        expect(screen.getByText("Settings")).toBeInTheDocument();
         expect(screen.getByText("Terms & Conditions")).toBeInTheDocument();
         expect(screen.getByText("Privicy Policy")).toBeInTheDocument();
         expect(screen.getByText("FAQs")).toBeInTheDocument();

@@ -1,5 +1,5 @@
 import * as FormRadix from "@radix-ui/react-form";
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 interface InputProps<T> {
   name: string;
@@ -9,8 +9,11 @@ interface InputProps<T> {
   placeholder?: string;
   disabled?: boolean;
   className?: string;
-  value?: T;
-  setInputValue: (value: T | ((prevValue: T) => T)) => void;
+  value?: T|null;
+  setInputValue:
+    Dispatch<SetStateAction<T>> |
+    ((value: string | number | boolean | null | undefined) => void)
+    | ((value: T|null) => void);
   onBlur?: () => void;
   min?: number;
   max?: number;
@@ -62,7 +65,11 @@ const Input = <T extends string | number>({
         className="flex items-baseline justify-between"
         data-testid="input-label"
       >
-        {label && <FormRadix.Label className="text-sm font-medium text-primary-50">{label}</FormRadix.Label>}
+        {label && 
+          <FormRadix.Label className="text-sm font-medium text-grey-300 mt-2">
+            {label}{isRequired && <span className="text-red-400">*</span>}
+          </FormRadix.Label>
+        }
         {isRequired && (
           <FormRadix.Message className="text-xs text-red-400" match="valueMissing">
             Required
@@ -87,14 +94,14 @@ const Input = <T extends string | number>({
           ) : (
             <input
               name={name}
-              className={`w-full h-12 px-3 text-grey-950 bg-primary-50 border border-grey-950 rounded-md focus:ring-2 focus:ring-white ${className} ${
+              className={`w-full h-10 px-3 text-grey-950 bg-primary-50 border border-grey-950 rounded-md focus:ring-2 focus:ring-white ${className} ${
                 icon ? "pr-10" : ""
               }`}
               type={type}
               required={isRequired}
               placeholder={placeholder}
               disabled={disabled}
-              value={value === 0 ? "" : value}
+              value={value === 0 || value === null ? "" : value}
               min={type === "number" ? min : undefined}
               max={type === "number" ? max : undefined}
               onChange={handleChange}

@@ -21,7 +21,7 @@ const venueMock = {
         zero_drink_types: [],
         zero_drinks: [],
     },
-    phone: "0123456789",
+    phone: 123456789,
     website: "https://www.tesco.com",
 };
 

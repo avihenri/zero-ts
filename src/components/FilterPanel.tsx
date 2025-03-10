@@ -1,40 +1,23 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import Slider from "./Common/Slider";
 import Input from "./Common/Input";
 import { Form } from "radix-ui";
 import { useEffect, useRef } from "react";
-import MultiSelectRadioGroup from "./Common/MultiSelectRadioGroup";
 import { distanceStateAtom } from "../state/atoms/distanceStateAtom";
 import { selectedTagsStateAtom } from "../state/atoms/selectedTagsStateAtom";
 import Divider from "./Common/Divider";
-import { tagsGroupedByTypeSelector } from "../state/selectors/tagsGroupedByTypeSelector";
 import { venuesStateAtom } from "../state/atoms/venuesStateAtom";
 import { fetchVenues } from "../services/venueService";
+import TagSelector from "./TagSelector";
+import useTagsByType from "../hooks/useTagsByType";
 
 
 const FilterPanel = () => {
     const panelRef = useRef<HTMLDivElement | null>(null);
     const [distance, setDistance] = useRecoilState(distanceStateAtom);
     const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsStateAtom);
-    const tagsByType = useRecoilValue(tagsGroupedByTypeSelector);
     const setVenues = useSetRecoilState(venuesStateAtom);
- 
-    const venueTypes = (tagsByType.venue_type || []).map(tag => ({
-        id: tag.id.toString(),
-        name: tag.name,
-      }));
-    const dietaries = (tagsByType.dietary_type || []).map(tag => ({
-        id: tag.id.toString(),
-        name: tag.name,
-    }));
-    const zeroDrinkTypes = (tagsByType.zero_drink_type || []).map(tag => ({
-        id: tag.id.toString(),
-        name: tag.name,
-    }));
-    const zeroDrinks = (tagsByType.zero_drink || []).map(tag => ({
-        id: tag.id.toString(),
-        name: tag.name,
-    }));
+    const { venueTypes, dietaries, zeroDrinkTypes, zeroDrinks } = useTagsByType();
 
     useEffect(() => {
         const params = selectedTags.length > 0
@@ -69,53 +52,45 @@ const FilterPanel = () => {
                         placeholder="Enter distance in miles"
                         value={distance}
                         max={100}
-                        setInputValue={setDistance}
+                        setInputValue={() => setDistance}
                     />
                 </div>
     
                 <Divider />
-        
-                <div className="w-full">
-                    <h1 className="text-primary-600 my-2 font-semibold">Filter by venue type</h1>
-                    <MultiSelectRadioGroup
-                        options={venueTypes}
-                        selectedValues={selectedTags}
-                        setSelectedValues={setSelectedTags}
-                    />
-                </div>
+
+                <TagSelector
+                    heading="Filter by venue type"
+                    tags={venueTypes}
+                    selectedTags={selectedTags}
+                    setSelectedTags={setSelectedTags}
+                />
     
                 <Divider />
         
-                <div className="w-full">
-                    <h1 className="text-primary-600 my-2 font-semibold">Filter by dietaries</h1>
-                    <MultiSelectRadioGroup
-                        options={dietaries}
-                        selectedValues={selectedTags}
-                        setSelectedValues={setSelectedTags}
-                    />
-                </div>
+                <TagSelector
+                    heading="Filter by dietary type"
+                    tags={dietaries}
+                    selectedTags={selectedTags}
+                    setSelectedTags={setSelectedTags}
+                />
     
                 <Divider />
-        
-                <div className="w-full">
-                    <h1 className="text-primary-600 my-2 font-semibold">Filter by non-alcoholic drink type</h1>
-                    <MultiSelectRadioGroup
-                        options={zeroDrinkTypes}
-                        selectedValues={selectedTags}
-                        setSelectedValues={setSelectedTags}
-                    />
-                </div>
+
+                <TagSelector
+                    heading="Filter by non-alcoholic drink type"
+                    tags={zeroDrinkTypes}
+                    selectedTags={selectedTags}
+                    setSelectedTags={setSelectedTags}
+                />
         
                 <Divider />
-        
-                <div className="w-full">
-                    <h1 className="text-primary-600 my-2 font-semibold">Filter by non-alcoholic drinks</h1>
-                    <MultiSelectRadioGroup
-                        options={zeroDrinks}
-                        selectedValues={selectedTags}
-                        setSelectedValues={setSelectedTags}
-                    />
-                </div>
+
+                <TagSelector
+                    heading="Filter by non-alcoholic drinks"
+                    tags={zeroDrinks}
+                    selectedTags={selectedTags}
+                    setSelectedTags={setSelectedTags}
+                />
             </Form.Root>
         </div>
       </div>

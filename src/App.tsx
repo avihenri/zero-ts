@@ -48,7 +48,7 @@ function App() {
         {isVenueListPrevPanel || leftPanel !== PANEL_CONTENT.VENUE_LIST
           && <VenueSearchAndFiltersBar classNames="absolute top-4 left-1/2 -translate-x-1/2 w-11/12 sm:w-2/5 sm:min-w-96 z-20"/>}
     
-        <MapComponent />
+        <MapComponent id="main-app-map" />
         <LeftPanel />
         <RightPanel />
       </main>
