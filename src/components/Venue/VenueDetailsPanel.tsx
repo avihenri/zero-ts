@@ -5,6 +5,7 @@ import Divider from "../Common/Divider";
 import Pill from "../Common/Pill";
 import { FaAddressBook, FaGlobe, FaPhone } from "react-icons/fa";
 import { Tag } from "../../services/tagService";
+import SaveVenueButton from "./SaveVenueButton";
 
 const VenueDetailsPanel = () => {
     const panelRef = useRef<HTMLDivElement | null>(null);
@@ -53,6 +54,9 @@ const VenueDetailsPanel = () => {
                             </a>
                         )}
 
+                        <div className="flex mt-4">
+                            <SaveVenueButton className="w-full" />
+                        </div>
                     </div>
                     <Divider />
                 </div>
@@ -61,7 +65,7 @@ const VenueDetailsPanel = () => {
                 {venueDetails?.tags_by_type?.dietary_types?.length && (
                     <>
                         <div className="w-full px-2">
-                            <h1 className="text-primary-600 my-2 font-semibold">Dietary Options</h1>
+                            <h1 className="text-primary-400 my-2 font-semibold">Dietary Options</h1>
 
                             {venueDetails?.tags_by_type?.dietary_types.map((tag : Tag) => (
                                 <Pill key={tag.id} text={tag.name} />
@@ -74,7 +78,7 @@ const VenueDetailsPanel = () => {
                 {venueDetails?.tags_by_type?.zero_drink_types?.length && (
                     <>
                         <div className="w-full px-2">
-                            <h1 className="text-primary-600 my-2 font-semibold">Non-Alcoholic Drink Type Options</h1>
+                            <h1 className="text-primary-400 my-2 font-semibold">Non-Alcoholic Drink Type Options</h1>
 
                             {venueDetails?.tags_by_type?.zero_drink_types.map((tag : Tag) => (
                                 <Pill key={tag.id} text={tag.name} />
@@ -88,7 +92,7 @@ const VenueDetailsPanel = () => {
                 {venueDetails?.tags_by_type?.zero_drinks?.length && (
                     <>
                         <div className="w-full px-2">
-                            <h1 className="text-primary-600 my-2 font-semibold">Non-Alcoholic Drink Options</h1>
+                            <h1 className="text-primary-400 my-2 font-semibold">Non-Alcoholic Drink Options</h1>
                             {venueDetails?.tags_by_type?.zero_drinks.map((tag : Tag) => (
                                 <Pill key={tag.id} text={tag.name} />
                             ))}

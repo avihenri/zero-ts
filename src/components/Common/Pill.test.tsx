@@ -12,7 +12,7 @@ describe("Pill component", () => {
     test("applies correct styles", () => {
         render(<Pill text="Styled Pill" />);
         const pillElement = screen.getByText("Styled Pill");
-        expect(pillElement).toHaveClass("p-1", "m-1", "bg-grey-900", "text-primary-400", "rounded-md", "w-fit", "cursor-default");
+        expect(pillElement).toHaveClass("p-1", "m-1", "bg-grey-900", "text-primary-200", "rounded-md", "w-fit", "cursor-default");
     });
 
     test("calls onClick when clicked", () => {

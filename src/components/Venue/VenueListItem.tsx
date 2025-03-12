@@ -4,6 +4,7 @@ import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
 import { PANEL_CONTENT } from "../../state/consts/panels";
 import { Venue } from "../../services/venueService";
 import { selectedVenueDetailsStateAtom } from "../../state/atoms/selectedVenueDetailsStateAtom";
+import SaveVenueButton from "./SaveVenueButton";
 
 type VenueListItemProps = {
     venue: Venue;
@@ -31,6 +32,9 @@ const VenueListItem = ({ venue }: VenueListItemProps) => {
                 </div>
             </div>
             <div className="flex justify-end" data-testid="venue-list-buttons">
+                <div className="mr-1">
+                    <SaveVenueButton />
+                </div>
                 <button
                     type="button"
                     className="p-2 text-grey-950 font-semibold text-sm rounded-md bg-primary-400 hover:bg-primary-500"
