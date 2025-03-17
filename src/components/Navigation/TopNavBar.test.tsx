@@ -24,12 +24,10 @@ describe('TopNavBar Component', () => {
     expect(userIcon).toBeInTheDocument();
   });
 
-  test('renders the brand logo text', () => {
+  test('renders the brand logo', () => {
     render(<TopNavBar />);
     
-    const logoText = screen.getByText(/ZERO/i);
-    expect(logoText).toBeInTheDocument();
-    expect(logoText).toHaveClass('text-2xl font-bold cursor-pointer');
+    const logo = screen.getByTestId('logo');
+    expect(logo).toBeInTheDocument();
   });
-
 });

@@ -50,7 +50,7 @@ const TopNavBar = () => {
         className="text-2xl font-bold cursor-pointer"
         data-testid="logo"
       >
-        ZERO
+        <img src="/src/assets/dark-mode/logo-transparent-no-icon-2000x2000px.png" alt="logo" className="h-8" />
       </div>
 
       <button
