@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useRef, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import { PANEL_CONTENT, PANEL_TITLES } from "../state/consts/panels";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
 import MainMenu from "./Navigation/MainMenu";
@@ -13,6 +13,7 @@ import { selectedVenueDetailsStateAtom } from "../state/atoms/selectedVenueDetai
 import CreateOrUpdateVenuePanel from "./Venue/CreateOrUpdateVenuePanel";
 import { GripVertical } from "lucide-react";
 import useScreenSize from "../hooks/useScreenSize";
+import { venueCoordinatesStateAtom } from "../state/atoms/venueCoordinatesStateAtom";
 
 const MIN_WIDTH = 300;
 const MAX_WIDTH = 600;
@@ -20,6 +21,7 @@ const MAX_WIDTH = 600;
 const LeftPanel = () => {
     const [{ currentPanel, previousPanel }, setLeftPanel] = useRecoilState(leftPanelStateAtom);
     const setSelectedVenueDetails = useSetRecoilState(selectedVenueDetailsStateAtom);
+    const resetVenueCoordinates = useResetRecoilState(venueCoordinatesStateAtom);
     const isVisible = currentPanel !== PANEL_CONTENT.CLOSED;
     const panelRef = useRef<HTMLDivElement | null>(null);
     const panelTitle = PANEL_TITLES[currentPanel] || '';
@@ -30,6 +32,7 @@ const LeftPanel = () => {
 
     const closePanel = () => {
         setSelectedVenueDetails(null);
+        resetVenueCoordinates();
         if (previousPanel === PANEL_CONTENT.VENUE_LIST) {
             setLeftPanel({ currentPanel: PANEL_CONTENT.VENUE_LIST, previousPanel: null });
             return;
