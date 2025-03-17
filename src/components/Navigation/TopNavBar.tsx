@@ -45,7 +45,6 @@ const TopNavBar = () => {
         <FaBars data-testid="menu-icon" className="text-2xl cursor-pointer hover:text-primary-400 hover:scale-105" />
       </button>
 
-      {/* TODO: add logo below */}
       <div
         className="text-2xl font-bold cursor-pointer"
         data-testid="logo"
