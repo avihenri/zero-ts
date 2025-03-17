@@ -60,6 +60,7 @@ const RightPanel = () => {
                 <div
                     className="absolute top-0 left-0 bottom-0 w-2 cursor-ew-resize bg-grey-900 hover:bg-grey-800"
                     onMouseDown={handleMouseDown}
+                    onTouchStart={handleMouseDown}
                 >
                     <div className="absolute top-1/2 left-0 -translate-y-1/2">
                         <GripVertical className="text-primary-50 w-2 h-2" />

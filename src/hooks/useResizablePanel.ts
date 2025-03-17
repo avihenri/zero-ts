@@ -17,25 +17,23 @@ export const useResizablePanel = ({
     const [panelWidth, setPanelWidth] = useState(initialWidth);
     const isResizing = useRef(false);
 
-    const handleMouseDown = () => {
+    const handleMouseDown = (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
         if (isSmallScreen) return;
         isResizing.current = true;
         document.body.style.userSelect = "none";
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
+    
+        if ("touches" in event) {
+            document.addEventListener("touchmove", handleTouchMove);
+            document.addEventListener("touchend", handleTouchEnd);
+        } else {
+            document.addEventListener("mousemove", handleMouseMove);
+            document.addEventListener("mouseup", handleMouseUp);
+        }
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (event: MouseEvent) => {
         if (!isResizing.current || isSmallScreen) return;
-        
-        let newWidth;
-        if (isRightPanel) {
-            newWidth = Math.min(Math.max(window.innerWidth - e.clientX, MIN_WIDTH), MAX_WIDTH);
-        } else {
-            newWidth = Math.min(Math.max(e.clientX, MIN_WIDTH), MAX_WIDTH);
-        }
-
-        setPanelWidth(newWidth);
+        updatePanelWidth(event.clientX);
     };
 
     const handleMouseUp = () => {
@@ -43,6 +41,29 @@ export const useResizablePanel = ({
         document.body.style.userSelect = "auto";
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+        if (!isResizing.current || isSmallScreen) return;
+        const touch = event.touches[0];
+        updatePanelWidth(touch.clientX);
+    };
+
+    const handleTouchEnd = () => {
+        isResizing.current = false;
+        document.body.style.userSelect = "auto";
+        document.removeEventListener("touchmove", handleTouchMove);
+        document.removeEventListener("touchend", handleTouchEnd);
+    };
+
+    const updatePanelWidth = (clientX: number) => {
+        let newWidth;
+        if (isRightPanel) {
+            newWidth = Math.min(Math.max(window.innerWidth - clientX, MIN_WIDTH), MAX_WIDTH);
+        } else {
+            newWidth = Math.min(Math.max(clientX, MIN_WIDTH), MAX_WIDTH);
+        }
+        setPanelWidth(newWidth);
     };
 
     return { panelWidth, handleMouseDown };

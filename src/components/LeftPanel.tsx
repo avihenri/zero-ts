@@ -43,12 +43,17 @@ const LeftPanel = () => {
                 isVisible ? "translate-x-0" : "-translate-x-full"
             )}
             style={{ width: isSmallScreen ? "100%" : `${panelWidth}px` }}
+            data-testid="left-panel"
         >
             <div className="pr-4">
                 <div className="flex justify-between">
                     <div className="text-lg font-bold cursor-pointer text-primary-200">{PANEL_TITLES[currentPanel]}</div>
                 </div>
-                <button onClick={closePanel} className="absolute top-4 right-4 p-1 rounded-full text-grey-400 hover:bg-grey-700 transition">
+                <button
+                    onClick={closePanel}
+                    className="absolute top-4 right-4 p-1 rounded-full text-grey-400 hover:bg-grey-700 transition"
+                    data-testid="close-left-panel"
+                >
                     <IoMdCloseCircleOutline className="text-2xl" />
                 </button>
                 <Divider classNames="mt-4 mb-2" />
@@ -61,7 +66,10 @@ const LeftPanel = () => {
             {currentPanel === PANEL_CONTENT.ADD_VENUE && <CreateOrUpdateVenuePanel />}
 
             {!isSmallScreen && (
-                <div className="absolute top-0 right-0 bottom-0 w-2 cursor-ew-resize bg-grey-900 hover:bg-grey-800" onMouseDown={handleMouseDown}>
+                <div className="absolute top-0 right-0 bottom-0 w-2 cursor-ew-resize bg-grey-900 hover:bg-grey-800"
+                    onMouseDown={handleMouseDown}
+                    onTouchStart={handleMouseDown}
+                >
                     <div className="absolute top-1/2 right-0 -translate-y-1/2">
                         <GripVertical className="text-primary-50 w-2 h-2" />
                         <GripVertical className="text-primary-50 w-2 h-2" />
