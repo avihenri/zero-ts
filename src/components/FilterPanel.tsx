@@ -35,7 +35,7 @@ const FilterPanel = () => {
             className="h-[92%] pr-1"
             data-testid="filter-panel"
         >
-            <div className="h-full overflow-y-scroll scrollbar-always-visible pb-4 mr-2">
+            <div className="h-full scrollbar-always-visible pb-4 mr-2">
                 {selectedTags.length > 0 && (
                     <button type="button" className="hover:text-primary-50 text-center w-full" onClick={() => setSelectedTags([])}>Clear {selectedTags.length} filters</button>
                 )}

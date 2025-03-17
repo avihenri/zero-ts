@@ -31,7 +31,7 @@ const VenueListPanel = () => {
             data-testid="venue-list-panel"
         >
             <div className="h-full overflow-auto pr-4 pb-4 mr-2">
-                <div className="p-2">
+                <div className="py-2">
                     <VenueSearchAndFiltersBar classNames="w-full" />
                     <AddVenueButton />
                     {selectedTags.length > 0 && (

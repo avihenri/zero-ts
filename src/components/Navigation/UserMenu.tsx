@@ -1,10 +1,22 @@
+import { useSetRecoilState } from "recoil";
 import Divider from "../Common/Divider";
 import { MenuItem } from "./MenuItem";
 import { MdFavorite, MdLogout, MdManageAccounts } from "react-icons/md";
+import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
+import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
+import { PANEL_CONTENT } from "../../state/consts/panels";
 
 const UserMenu = () => {
+    const setLeftPanel = useSetRecoilState(leftPanelStateAtom);
+    const setRightPanel = useSetRecoilState(rightPanelStateAtom);
+
     const handleClick = () => {
         console.log("click");
+    };
+
+    const handleSavedVenuesClick = () => {
+        setLeftPanel({ currentPanel: PANEL_CONTENT.CLOSED, previousPanel: null });
+        setRightPanel(PANEL_CONTENT.SAVED_VENUE_LIST);
     };
 
     return (
@@ -47,7 +59,7 @@ const UserMenu = () => {
                         </MenuItem>
                         <MenuItem
                             type="app"
-                            onClick={handleClick}
+                            onClick={handleSavedVenuesClick}
                             icon={<MdFavorite />}
                             iconClassName="mr-2"
                         >

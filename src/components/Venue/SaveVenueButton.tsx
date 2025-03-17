@@ -2,7 +2,8 @@
 
 import clsx from "clsx";
 
-// if venue is saved, change button to "Saved"
+// if venue is saved, change button to "Unsave"
+// if venue is not saved, change button to "Save"
 const SaveVenueButton = ({ className } : { className?: string}) => {
     return (
         <button
@@ -16,7 +17,7 @@ const SaveVenueButton = ({ className } : { className?: string}) => {
             onClick={() => {}}
             data-testid="save-venue-button"
         >
-            Save
+            Unsave
         </button>
     );
 };

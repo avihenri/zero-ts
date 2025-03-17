@@ -16,6 +16,17 @@ const venueMock = {
         name: "Shop",
     },
     formatted_address: "123 Fake Street",
+    housenumber: "123",
+    street: "Fake Street",
+    city: "Fake City",
+    country: "Fake Country",
+    state: "Fake State",
+    country_code: "FC",
+    timezone: "Fake Timezone",
+    location: {
+        type: "Point",
+        coordinates: [1.23456789, 1.23456789],
+    },
     tags_by_type: {
         dietary_types: [],
         zero_drink_types: [],
@@ -36,7 +47,7 @@ describe("VenueListItem Component", () => {
         expect(screen.getByTestId("venue-list-name")).toHaveTextContent("Tesco Express");
         expect(screen.getByTestId("venue-list-category")).toHaveTextContent("Shop");
         expect(screen.getByTestId("venue-list-buttons")).toBeInTheDocument();
-        expect(screen.getByTestId("venue-list-button-view")).toHaveTextContent("View Details");
+        expect(screen.getByTestId("venue-list-button-view")).toHaveTextContent("View");
     });
     
     test("View Details button should be clickable", async () => {

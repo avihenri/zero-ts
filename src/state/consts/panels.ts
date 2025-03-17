@@ -3,6 +3,7 @@ export const PANEL_CONTENT = {
     USER_MENU: 'USER_MENU',
     FILTER_SORT: 'FILTER_SORT',
     VENUE_LIST: 'VENUE_LIST',
+    SAVED_VENUE_LIST: 'SAVED_VENUE_LIST',
     VIEW_VENUE: 'VIEW_VENUE',
     ADD_VENUE: 'ADD_VENUE',
     CLOSED: 'CLOSED',
@@ -16,6 +17,7 @@ export const PANEL_CONTENT = {
     [PANEL_CONTENT.VENUE_LIST]: 'Venues',
     [PANEL_CONTENT.VIEW_VENUE]: 'Venue Details',
     [PANEL_CONTENT.ADD_VENUE]: 'Add Venue',
+    [PANEL_CONTENT.SAVED_VENUE_LIST]: 'Saved Venues',
   };
   
   

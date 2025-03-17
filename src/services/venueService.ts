@@ -1,9 +1,18 @@
+import { MdLocationPin } from "react-icons/md";
 import { ENV } from "../config/env";
 import { buildQueryParams, QueryParams } from "../utils/buildQueryString";
 import { Tag } from "./tagService";
+import { BeerIcon, LucideIcon, ShoppingBasket, Soup } from "lucide-react";
 
 const POSTMAN_URL = ENV.POSTMAN_URL;
 // const POSTMAN_KEY = ENV.POSTMAN_KEY;
+
+export const venueTypeIcons: Record<string, LucideIcon | React.ComponentType> = {
+    restaurant: Soup,
+    bar: BeerIcon,
+    shop: ShoppingBasket,
+    default: MdLocationPin, // fallback icon
+  };
 
 export type TagsByType = {
     dietary_types?: Tag[];
@@ -15,6 +24,7 @@ export type VenueType = {
     id: number|string;
     name: string;
     description?: string;
+    icon?: string;
 }
 
 export type Venue = {
@@ -22,6 +32,17 @@ export type Venue = {
     name: string;
     venue_type: VenueType;
     formatted_address?: string;
+    housenumber?: string;
+    street?: string;
+    city?: string;
+    country?: string;
+    state?: string;
+    country_code?: string;
+    timezone?: string;
+    location?: {
+        type: string;
+        coordinates: number[];
+    };
     tags_by_type?: TagsByType;
     phone?: number|null;
     website?: string;
@@ -37,7 +58,7 @@ export type VenueApiResponse = {
     };
 };
 
-const venueResponse = {
+export const venueResponse = {
     "data": [
         {
             "id": 10,
@@ -45,7 +66,8 @@ const venueResponse = {
             "venue_type": {
                 "id": "1739980068274896",
                 "name": "Shop",
-                "description": "Facere quia exercitationem ea autem molestias hic maxime temporibus."
+                "description": "Facere quia exercitationem ea autem molestias hic maxime temporibus.",
+                "icon": "ShoppingBasket"
             },
             "location": {
                 "type": "Point",
@@ -55,6 +77,11 @@ const venueResponse = {
                 ]
             },
             "formatted_address": "Spar, 104 Abbey Road, Scone, PH2 6RU, United Kingdom",
+            "housenumber": "104",
+            "street": "Abbey Road",
+            "city": "Scone",
+            "country": "United Kingdom",
+            "state": "Scotland",
             "country_code": "gb",
             "timezone": "Europe/London",
             "phone": 1738210210,
@@ -119,6 +146,11 @@ const venueResponse = {
                 ]
             },
             "formatted_address": "Scone Arms, 2 Cross Street, Perth, PH2 6LR, United Kingdom",
+            "housenumber": "2",
+            "street": "Cross Street",
+            "city": "Perth",
+            "country": "United Kingdom",
+            "state": "Scotland",
             "country_code": "gb",
             "timezone": "Europe/London",
             "phone": 1738551154,

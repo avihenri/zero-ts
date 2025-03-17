@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import { PANEL_CONTENT, PANEL_TITLES } from "../state/consts/panels";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
@@ -15,7 +15,7 @@ import { GripVertical } from "lucide-react";
 import useScreenSize from "../hooks/useScreenSize";
 import { venueCoordinatesStateAtom } from "../state/atoms/venueCoordinatesStateAtom";
 
-const MIN_WIDTH = 300;
+const MIN_WIDTH = 400;
 const MAX_WIDTH = 600;
 
 const LeftPanel = () => {
@@ -60,6 +60,12 @@ const LeftPanel = () => {
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
     };
+
+    useEffect(() => {
+        if (!isVisible && panelRef.current?.contains(document.activeElement)) {
+          document.getElementById('open-panel-btn')?.focus();
+        }
+      }, [isVisible]);
 
     return (
         <aside

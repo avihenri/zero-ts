@@ -7,7 +7,7 @@ global.ResizeObserver = class {
     observe() {}
     unobserve() {}
     disconnect() {}
-  };
+};
 
 const renderWithRecoil = (ui: React.ReactNode) => {
   return render(<RecoilRoot>{ui}</RecoilRoot>);
