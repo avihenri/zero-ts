@@ -12,7 +12,7 @@ const mockVenueDetails = {
         name: "Restaurant"
     },
     formatted_address: "123 Test St, Test City",
-    phone: 1234567890,
+    phone: "+441234567890",
     website: "www.testvenue.com",
     tags_by_type: {
         dietary_types: [
@@ -64,7 +64,7 @@ describe("VenueDetailsPanel component", () => {
             </RecoilRoot>
         );
         expect(screen.getByText("123 Test St, Test City")).toBeInTheDocument();
-        expect(screen.getByText(1234567890)).toHaveAttribute("href", "tel:1234567890");
+        expect(screen.getByText("+441234567890")).toHaveAttribute("href", "tel:+441234567890");
         expect(screen.getByText("www.testvenue.com")).toHaveAttribute("href", "https://www.testvenue.com");
     });
 

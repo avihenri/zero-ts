@@ -46,7 +46,7 @@ export type VenueFormDataType = {
   timezone?: string|null;
   lat: number|null;
   lon: number|null;
-  phone?: number|null;
+  phone?: string|null;
   website?: string|null;
   selectedTagIds: string[];
 };

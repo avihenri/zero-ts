@@ -35,18 +35,22 @@ const Input = <T extends string | number>({
   max,
   icon,
 }: InputProps<T>) => {
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (disabled) return;
 
-    const newValue: string | number = e.target.value;
+    const inputValue: string | number = e.target.value;
 
-    if (type === "number") {
-      if (newValue === "") {
+    if (name === "phone") {
+      const formattedValue = inputValue.replace(/[^0-9+\-\s()]/g, '');
+      setInputValue(formattedValue as T);
+    } else if (type === "number") {
+      if (inputValue === "") {
         setInputValue("" as T);
         return;
       }
 
-      const numValue = Number(newValue);
+      const numValue = Number(inputValue);
 
       if (!isNaN(numValue)) {
         if (min !== undefined && numValue < min) return;
@@ -55,7 +59,7 @@ const Input = <T extends string | number>({
 
       setInputValue(numValue as T);
     } else {
-      setInputValue(newValue as T);
+      setInputValue(inputValue as T);
     }
   };
 
@@ -106,6 +110,8 @@ const Input = <T extends string | number>({
               value={value === 0 || value === null ? "" : value}
               min={type === "number" ? min : undefined}
               max={type === "number" ? max : undefined}
+              minLength={type !== "number" ? min : undefined}
+              maxLength={type !== "number" ? max : undefined}
               onChange={handleChange}
               onBlur={onBlur}
               data-testid={`input-${name}`}

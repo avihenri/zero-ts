@@ -206,11 +206,12 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                         <Input
                             name="phone"
                             label="Phone number"
-                            type="number"
+                            type="text"
                             placeholder="+441234567891"
                             value={formData?.phone ?? null}
-                            setInputValue={(value: number|null) => handleInputChange("phone", value)}
+                            setInputValue={(value: string|null) => handleInputChange("phone", value)}
                             className={errors.phone ? "border-red-500" : ""}
+                            max={15}
                         />
                         <div className="pb-2"><small>Include country code, for example: 44 for UK or 1 for USA</small></div>
                     </div>

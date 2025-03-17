@@ -44,7 +44,7 @@ export type Venue = {
         coordinates: number[];
     };
     tags_by_type?: TagsByType;
-    phone?: number|null;
+    phone?: string|null;
     website?: string;
 };
 
@@ -84,7 +84,7 @@ export const venueResponse = {
             "state": "Scotland",
             "country_code": "gb",
             "timezone": "Europe/London",
-            "phone": 1738210210,
+            "phone": "+441738210210",
             "website": "https://scone-arms.perthshireonline.com/en/",
             "tags_by_type": {
                 "dietary_types": [
@@ -153,7 +153,7 @@ export const venueResponse = {
             "state": "Scotland",
             "country_code": "gb",
             "timezone": "Europe/London",
-            "phone": 1738551154,
+            "phone": "+441738551154",
             "website": "https://www.spar.co.uk/store-locator/lan47441-spar-scone",
             "tags_by_type": {
                 "dietary_types": [
