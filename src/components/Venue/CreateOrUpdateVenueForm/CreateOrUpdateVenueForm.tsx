@@ -2,7 +2,6 @@ import { Form } from "radix-ui";
 import Input from "../../Common/Input";
 import useTagsByType from "../../../hooks/useTagsByType";
 import { useEffect, useRef, useState } from "react";
-import GeoapifySearch from "../../Common/GeoapifySearch";
 import MapComponent from "../../Map/MapComponent";
 import Divider from "../../Common/Divider";
 import TagSelector from "../../TagSelector";
@@ -12,12 +11,15 @@ import { schema } from "./schema";
 import { venueCoordinatesStateAtom } from "../../../state/atoms/venueCoordinatesStateAtom";
 import { CoordinatesType, VenueAddressType, VenueFormDataType } from "../../../ts/types";
 import { useRecoilState } from "recoil";
+import { reverseGeocodeFromCoordinates } from "../../../services/geoaplifyService";
+import AddressSearchInput from "../../Common/AddressSearchInput";
 
 const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueFormDataType }) => {
     const submitButtonRef = useRef<HTMLDivElement | null>(null);
     const { venueTypes, dietaries, zeroDrinkTypes, zeroDrinks } = useTagsByType();
     const [formData, setFormData] = useState(initialFormData);
     const [address, setAddress] = useState<VenueAddressType|null>(null);
+    const [housenumber, setHousenumber] = useState<string|null>(null);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [venueCoordinates, setVenueCoordinates] = useRecoilState<CoordinatesType>(venueCoordinatesStateAtom);
 
@@ -31,7 +33,6 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
     };
 
     const validateForm = () => {
-        console.log('formData', formData);
         const { error } = schema.validate(formData, { abortEarly: false });
 
         if (error) {
@@ -49,58 +50,69 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-
+        console.log("Form submitted successfully:", formData);
         if (validateForm()) {
-            console.log("Form submitted successfully:", formData);
             // TODO: send data to API
         } else {
-            console.log("Form has errors:", errors);
             setTimeout(() => {
-                if (submitButtonRef.current) {
-                    submitButtonRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                }
+                submitButtonRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
             }, 100);
         }
     };
 
+    const handlePinMove = async (newCoordinates: CoordinatesType) => {
+        setVenueCoordinates(newCoordinates);
+        const newAddress = await reverseGeocodeFromCoordinates(newCoordinates);
+        setAddress(newAddress);
+    };
+
     useEffect(() => {
-        if (
-            venueCoordinates.lat && venueCoordinates.lon &&
-            formData.lat !== venueCoordinates.lat && formData.lon !== venueCoordinates.lon
-        ) {
+        if (venueCoordinates.lat && venueCoordinates.lon) {
             setFormData((prev) => ({
                 ...prev,
                 lat: venueCoordinates.lat,
                 lon: venueCoordinates.lon,
             }));
         }
-    }, [formData.lat, formData.lon, venueCoordinates]);
+    }, [venueCoordinates]);
 
     useEffect(() => {
+        setFormData((prev) => ({
+            ...prev,
+            address: address?.address || "",
+            housenumber: address?.housenumber || "",
+            street: address?.street || "",
+            city: address?.city || "",
+            state: address?.state || "",
+            country: address?.country || "",
+            country_code: address?.country_code || "",
+            timezone: address?.timezone || "",
+            lat: address?.lat || null,
+            lon: address?.lon || null,
+        }));
         if (address) {
+            setVenueCoordinates({ lat: address.lat, lon: address.lon });
+        }
+    }, [address, setVenueCoordinates]);
+
+    useEffect(() => {
+        if (housenumber) {
             setFormData((prev) => ({
                 ...prev,
-                address: address.address,
-                housenumber: address?.housenumber || null,
-                street: address?.street || null,
-                city: address?.city || null,
-                state: address?.state || "",
-                country: address?.country || "",
-                countryCode: address?.country_code || "",
-                timezone: address?.timezone || "",
-                lat: address.lat,
-                lon: address.lat,
+                housenumber,
             }));
-            setVenueCoordinates({
-                lat: address.lat || null,
-                lon: address.lon || null,
-            });
         }
-    }, [address, setFormData, setVenueCoordinates]);
+    }, [housenumber]);
 
+    const handleClearAddressInput = () => {
+        setAddress(null);
+        setVenueCoordinates({ lat: null, lon: null });
+        setHousenumber(null);
+    }
+    
     return (
         <Form.Root>
-            <div data-testid="create-update-vernue-form">
+            <div data-testid="create-update-venue-form">
                 <div className="px-2">
                     <div className="mb-4">
                         <Input
@@ -132,8 +144,8 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                         <label className="text-sm font-medium text-grey-300">
                             Find Address<span className="text-red-400">*</span>
                         </label><br />
-                        <div className="pb-2"><small>Can&apos;t see the address? Search for a local street and move the pin in the map below.</small></div>
-                        <GeoapifySearch
+                        <div className="pb-2"><small>Can&apos;t see exact address? Simply move the pin on the map to the correct location.</small></div>
+                        <AddressSearchInput
                             value={address?.address}
                             onChange={(selected) => {
                                 if (selected) {
@@ -155,13 +167,37 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                             }}
                             inputClassNames={errors.address ? "border-red-500 bg-red-50" : ""}
                             placeholder="Start typing address..."
+                            onClear={handleClearAddressInput}
                         />
                         <div className="px-4 border border-grey-800 rounded-md shadow-lg my-4">
-                            <p className="text-action-400 mt-4 mb-2">
-                                {address?.address ? "Drag pin to exact spot if not correct:" : null}
-                            </p>
-                            <div className="w-full h-72 mb-4 border border-grey-800 shadow-lg">
-                                <MapComponent id="create-update-venue-map" />
+                            {address?.address ?
+                                <>
+                                {
+                                    !address.housenumber ? (
+                                        <Input
+                                            name="housenumber"
+                                            label="Building number or name"
+                                            type="text"
+                                            value={housenumber || null}
+                                            setInputValue={(value: string|null) => setHousenumber(value)}
+                                        />
+                                    ) : null
+                                }
+                                    <div className="mt-4 mb-2">
+                                        <p className="text-grey-400 font-semibold">
+                                            {housenumber ? housenumber + " " : ""}{address?.address}
+                                        </p>
+                                    </div>
+                                    <p className="text-action-400 mb-2">
+                                        Drag pin to exact spot if not correct:
+                                    </p>
+                                </>
+                            : null}
+                            <div className="w-full h-72 my-4 border border-grey-800 shadow-lg">
+                                <MapComponent
+                                    id="create-update-venue-map"
+                                    onPinMove={handlePinMove}
+                                />
                             </div>
                         </div>
                     </div>
@@ -171,11 +207,12 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                             name="phone"
                             label="Phone number"
                             type="number"
-                            placeholder="01234567891"
+                            placeholder="+441234567891"
                             value={formData?.phone ?? null}
                             setInputValue={(value: number|null) => handleInputChange("phone", value)}
                             className={errors.phone ? "border-red-500" : ""}
                         />
+                        <div className="pb-2"><small>Include country code, for example: 44 for UK or 1 for USA</small></div>
                     </div>
 
                     <div className="my-2">
@@ -192,7 +229,7 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                 </div>
             </div>
 
-            <Divider classNames="w-72" />
+            <Divider classNames="w-72 my-4" />
 
             <div className="my-2">
                 <h2 className="font-semibold text-grey-200">
@@ -209,14 +246,14 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                         selectedTagIds={formData?.selectedTagIds ?? []}
                         setSelectedTags={(tags) => handleInputChange("selectedTagIds", tags)}
                     />
-                    <Divider classNames="w-44" />
+                    <Divider classNames="w-44 my-4" />
                     <TagSelector
                         heading="Non-alcoholic drink type"
                         tags={zeroDrinkTypes}
                         selectedTagIds={formData?.selectedTagIds ?? []}
                         setSelectedTags={(tags) => handleInputChange("selectedTagIds", tags)}
                     />
-                    <Divider classNames="w-44" />
+                    <Divider classNames="w-44 my-4" />
                     <TagSelector
                         heading="Non-alcoholic drinks"
                         tags={zeroDrinks}
@@ -226,7 +263,7 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                 </div>
             </div>
 
-            <Divider classNames="w-72" />
+            <Divider classNames="w-72 my-4" />
 
             {Object.keys(errors).length > 0 && (
                 <div
@@ -245,7 +282,7 @@ const CreateOrUpdateVenueForm = ({ initialFormData } : { initialFormData: VenueF
                 <button
                     type="button"
                     className="w-[90%] mx-auto p-3 mb-4 bg-primary-800 text-grey-200 rounded-lg font-semibold hover:bg-primary-600 hover:text-primary-950"
-                    data-test="submit-button"
+                    data-testid="submit-button"
                     onClick={handleSubmit}
                 >
                     Save

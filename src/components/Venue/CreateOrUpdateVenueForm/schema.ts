@@ -14,13 +14,13 @@ export const schema = Joi.object({
         'string.base': 'Address must be a string'
     }),
 
-    housenumber: Joi.number().allow(null).optional(),
-    street: Joi.string().allow(null).optional(),
-    city: Joi.string().allow(null).optional(),
-    state: Joi.string().allow(null).optional(),
-    country: Joi.string().allow(null).optional(),
-    countryCode: Joi.string().allow(null).optional(),
-    timezone: Joi.string().allow(null).optional(),
+    housenumber: Joi.string().empty("").allow(null).optional(),
+    street: Joi.string().empty("").allow(null).optional(),
+    city: Joi.string().empty("").allow(null).optional(),
+    state: Joi.string().empty("").allow(null).optional(),
+    country: Joi.string().empty("").allow(null).optional(),
+    country_code: Joi.string().empty("").allow(null).optional(),
+    timezone: Joi.string().empty("").allow(null).optional(),
 
     lat: Joi.alternatives()
         .conditional('address', {

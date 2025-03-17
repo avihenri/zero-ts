@@ -30,7 +30,7 @@ const VenueListPanel = () => {
             className="h-[92%]"
             data-testid="venue-list-panel"
         >
-            <div className="h-full overflow-auto pr-4 pb-4">
+            <div className="h-full overflow-auto pr-4 pb-4 mr-2">
                 <div className="p-2">
                     <VenueSearchAndFiltersBar classNames="w-full" />
                     <AddVenueButton />
@@ -43,7 +43,7 @@ const VenueListPanel = () => {
                         Showing {venues.length} results of {venueTotal} within {distance} miles
                     </span>
                 </div>
-                <Divider />
+                <Divider classNames="my-4" />
 
                 {venues.length ? venues.map((venue) => (
                     <VenueListItem key={venue.id} venue={venue} />

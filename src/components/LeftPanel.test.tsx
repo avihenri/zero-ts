@@ -8,6 +8,7 @@ import { PANEL_CONTENT } from "../state/consts/panels";
 jest.mock("lucide-react", () => ({
     Check: () => <svg data-testid="check-icon" />,
     X: () => <svg data-testid="x-icon" />,
+    GripVertical: () => <div data-testid="grip-icon" />,
 }));
 
 jest.mock("mapbox-gl/dist/mapbox-gl.css", () => ({}));

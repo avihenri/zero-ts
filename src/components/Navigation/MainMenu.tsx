@@ -36,7 +36,7 @@ const MainMenu = () => {
             </div>
             
             <div>
-                <Divider />
+                <Divider classNames="my-4" />
                 <MenuItem
                     type="system"
                     onClick={handleClick}

@@ -2,6 +2,26 @@ html, body, #root {
   height: 100%;
   margin: 0;
 }
+
+.scrollbar-always-visible {
+  overflow-y: scroll;
+}
+
+.scrollbar-always-visible::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollbar-always-visible::-webkit-scrollbar-thumb {
+  background-color: #52555D; /* grey-900 */
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.scrollbar-always-visible::-webkit-scrollbar-track {
+  background-color: #303136; /* grey-950 */
+}
+
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;

@@ -21,8 +21,8 @@ const CreateOrUpdateVenuePanel = ({ existingVenue } : {
     }, [existingVenue]);
 
     return (
-        <div className="h-[92%] overflow-auto" data-testid="venue-details-panel">
-            <div className="h-full pr-4 pb-4">
+        <div className="h-[92%]" data-testid="venue-details-panel">
+            <div className="h-full overflow-y-scroll scrollbar-always-visible pr-4 pb-4 mr-3">
                 <CreateOrUpdateVenueForm
                     initialFormData={initialFormData}
                 />

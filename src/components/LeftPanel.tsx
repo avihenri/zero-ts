@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { PANEL_CONTENT, PANEL_TITLES } from "../state/consts/panels";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
@@ -11,6 +11,11 @@ import VenueDetailsPanel from "./Venue/VenueDetailsPanel";
 import Divider from "./Common/Divider";
 import { selectedVenueDetailsStateAtom } from "../state/atoms/selectedVenueDetailsStateAtom";
 import CreateOrUpdateVenuePanel from "./Venue/CreateOrUpdateVenuePanel";
+import { GripVertical } from "lucide-react";
+import useScreenSize from "../hooks/useScreenSize";
+
+const MIN_WIDTH = 300;
+const MAX_WIDTH = 600;
 
 const LeftPanel = () => {
     const [{ currentPanel, previousPanel }, setLeftPanel] = useRecoilState(leftPanelStateAtom);
@@ -18,15 +23,39 @@ const LeftPanel = () => {
     const isVisible = currentPanel !== PANEL_CONTENT.CLOSED;
     const panelRef = useRef<HTMLDivElement | null>(null);
     const panelTitle = PANEL_TITLES[currentPanel] || '';
-    
+
+    const [panelWidth, setPanelWidth] = useState(384); // tailwind's sm:w-96 (384px)
+    const isResizing = useRef(false);
+    const isSmallScreen = useScreenSize();
+
     const closePanel = () => {
         setSelectedVenueDetails(null);
         if (previousPanel === PANEL_CONTENT.VENUE_LIST) {
             setLeftPanel({ currentPanel: PANEL_CONTENT.VENUE_LIST, previousPanel: null });
             return;
         }
-
         setLeftPanel({ currentPanel: PANEL_CONTENT.CLOSED, previousPanel: null });
+    };
+
+    const handleMouseDown = () => {
+        if (isSmallScreen) return;
+        isResizing.current = true;
+        document.body.style.userSelect = "none";
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+        if (!isResizing.current || isSmallScreen) return;
+        const newWidth = Math.min(Math.max(e.clientX, MIN_WIDTH), MAX_WIDTH);
+        setPanelWidth(newWidth);
+    };
+
+    const handleMouseUp = () => {
+        isResizing.current = false;
+        document.body.style.userSelect = "auto";
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
     };
 
     return (
@@ -36,15 +65,16 @@ const LeftPanel = () => {
             aria-modal="true"
             aria-hidden={!isVisible}
             className={clsx(
-                'absolute top-0 left-0 bottom-0 w-full sm:w-1/3 sm:min-w-96 bg-grey-950 text-grey-500 py-4 pl-4 transition-transform duration-300 ease-in-out z-40',
+                'absolute top-0 left-0 bottom-0 bg-grey-950 text-grey-500 pt-4 pl-4 transition-transform duration-300 ease-in-out z-40',
                 isVisible ? 'translate-x-0' : '-translate-x-full'
             )}
+            style={{ width: isSmallScreen ? "100%" : `${panelWidth}px` }}
             data-testid="left-panel"
         >
             <div className="pr-4">
                 <div className="flex justify-between">
                     <div className="flex">
-                        <div className="text-lg font-bold cursor-pointer text-primary-200 mr-1">{ panelTitle }</div>
+                        <div className="text-lg font-bold cursor-pointer text-primary-200 mr-1">{panelTitle}</div>
                     </div>
                 </div>
 
@@ -57,7 +87,7 @@ const LeftPanel = () => {
                     <IoMdCloseCircleOutline className="text-2xl" />
                 </button>
 
-                <Divider />
+                <Divider classNames="mt-4 mb-2" />
             </div>
 
             {currentPanel === PANEL_CONTENT.MAIN_MENU && <MainMenu />}
@@ -65,6 +95,20 @@ const LeftPanel = () => {
             {currentPanel === PANEL_CONTENT.VENUE_LIST && <VenueListPanel />}
             {currentPanel === PANEL_CONTENT.VIEW_VENUE && <VenueDetailsPanel />}
             {currentPanel === PANEL_CONTENT.ADD_VENUE && <CreateOrUpdateVenuePanel />}
+
+            {!isSmallScreen && (
+                 <div
+                    className="absolute top-0 right-0 bottom-0 w-2 cursor-ew-resize bg-grey-900 hover:bg-grey-800 sm:block"
+                    onMouseDown={handleMouseDown}
+                >
+                    <div className="absolute top-1/2 right-0 -translate-y-1/2" >
+                        <GripVertical className="text-primary-50 w-2 h-2" />
+                        <GripVertical className="text-primary-50 w-2 h-2" />
+                        <GripVertical className="text-primary-50 w-2 h-2" />
+                        <GripVertical className="text-primary-50 w-2 h-2" />
+                    </div>
+                </div>
+            )}
         </aside>
     );
 };

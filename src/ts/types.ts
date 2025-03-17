@@ -36,7 +36,7 @@ export type VenueFormDataType = {
   id?: string|null;
   name: string;
   venueTypeId: string;
-  address: string;
+  address?: string|null;
   housenumber?: string|null;
   street?: string|null;
   city?: string|null;

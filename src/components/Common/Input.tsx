@@ -67,7 +67,9 @@ const Input = <T extends string | number>({
       >
         {label && 
           <FormRadix.Label className="text-sm font-medium text-grey-300 mt-2">
-            {label}{isRequired && <span className="text-red-400">*</span>}
+            {label}{isRequired ?
+              <span className="text-red-400">*</span> :
+              <span className="text-grey-400 text-xs"> (Optional)</span>}
           </FormRadix.Label>
         }
         {isRequired && (
@@ -82,7 +84,7 @@ const Input = <T extends string | number>({
           {type === "textarea" ? (
             <textarea
               name={name}
-              className={`w-full h-28 p-2 text-grey-950 bg-primary-50 border border-grey-950 rounded-md focus:ring-2 focus:ring-white ${className}`}
+              className={`w-full p-2 text-grey-950 bg-primary-50 border border-grey-950 rounded-md focus:ring-2 focus:ring-white ${className}`}
               required={isRequired}
               placeholder={placeholder}
               disabled={disabled}

@@ -17,7 +17,7 @@ const VenueDetailsPanel = () => {
             className="h-[90%]"
             data-testid="venue-details-panel"
         >
-            <div className="h-full overflow-auto pr-4 pb-16">
+            <div className="h-full overflow-y-scroll scrollbar-always-visible pr-4 pb-16 mr-3">
                 <div className="w-full" data-testid="venue-list-header">
                     <div
                         className="text-primary-400 text-lg font-semibold uppercase px-2"
@@ -58,7 +58,7 @@ const VenueDetailsPanel = () => {
                             <SaveVenueButton className="w-full" />
                         </div>
                     </div>
-                    <Divider />
+                    <Divider classNames="my-4" />
                 </div>
                 
 
@@ -71,7 +71,7 @@ const VenueDetailsPanel = () => {
                                 <Pill key={tag.id} text={tag.name} />
                             ))}
                         </div>
-                        <Divider />
+                        <Divider classNames="my-4" />
                     </>
                 )}
         
@@ -85,7 +85,7 @@ const VenueDetailsPanel = () => {
                             ))}
                         </div>
 
-                        <Divider />
+                        <Divider classNames="my-4" />
                     </>
                 )}
 

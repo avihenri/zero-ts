@@ -31,7 +31,7 @@ const UserMenu = () => {
                     </button>
                 </div>
 
-                <Divider />
+                <Divider classNames="my-4" />
                 <div
                     className="flex flex-col justify-between h-full"
                     data-testid="user-menu-dropdown-content"
@@ -55,7 +55,7 @@ const UserMenu = () => {
                         </MenuItem>
                     </div>
                     <div>
-                        <Divider />
+                        <Divider classNames="my-4" />
                         <MenuItem
                             type="system"
                             onClick={handleClick}

@@ -18,7 +18,7 @@ const exampleVenuesGeoJSON = {
         name: "Venue 1",
         type: "Bar",
         id: "venue-1",
-    },
+      },
     },
     {
       type: "Feature",
@@ -27,13 +27,14 @@ const exampleVenuesGeoJSON = {
         name: "Venue 2",
         type: "Cafe",
         id: "venue-2",
-    },
+      },
     },
   ],
 };
 
-const MapComponent = ({ id } : { id: string}) => {
+const MapComponent = ({ id, onPinMove }: { id: string; onPinMove?: (coords: CoordinatesType) => void }) => {
   const mapRef = useRef<MapRef>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const [venueCoordinates, setVenueCoordinates] = useRecoilState<CoordinatesType>(venueCoordinatesStateAtom);
   const isNewOrUpdatingMap = id === "create-update-venue-map";
@@ -55,18 +56,33 @@ const MapComponent = ({ id } : { id: string}) => {
   // };
 
   useEffect(() => {
-    console.log(venueCoordinates);
-    if (venueCoordinates?.lat && venueCoordinates?.lon) {
+    const resizeObserver = new ResizeObserver(() => {
+        if (mapRef.current) {
+            mapRef.current.resize();
+        }
+    });
+
+    if (containerRef.current) {
+        resizeObserver.observe(containerRef.current);
+    }
+
+    return () => {
+        resizeObserver.disconnect();
+    };
+}, []);
+
+  useEffect(() => {
+    if (isNewOrUpdatingMap && venueCoordinates?.lat && venueCoordinates?.lon) {
       setViewState({
         longitude: venueCoordinates.lon,
         latitude: venueCoordinates.lat,
         zoom: 17,
       });
     }
-  }, [venueCoordinates]);
+  }, [venueCoordinates, isNewOrUpdatingMap]);
 
   return (
-    <div className="w-full h-full">
+    <div ref={containerRef} className="w-full h-full">
       <Map
           id={id}
           key={id}
@@ -79,35 +95,28 @@ const MapComponent = ({ id } : { id: string}) => {
           mapboxAccessToken={MAPBOX_TOKEN}
           attributionControl={true}
       >
-        {/* store or edit venue pin */}
-        {isNewOrUpdatingMap && 
-          (venueCoordinates?.lat && venueCoordinates?.lon)
-          && (
-          <Marker
-            key="venue-marker"
-            longitude={venueCoordinates.lon}
-            latitude={venueCoordinates.lat}
-            anchor="bottom"
-            style={{ cursor: "grab" }}
-            draggable
-            onDragEnd={(event) => {
-              const { lng, lat } = event.lngLat;
-              setViewState((prev) => ({
-                ...prev,
-                longitude: lng,
-                latitude: lat,
-              }));
-              setVenueCoordinates({
-                  lon: lng,
-                  lat: lat,
-              });
-            }}
-          />
-        )}
+        {isNewOrUpdatingMap &&
+          venueCoordinates?.lat &&
+          venueCoordinates?.lon && (
+            <Marker
+              key="venue-marker"
+              longitude={venueCoordinates.lon}
+              latitude={venueCoordinates.lat}
+              anchor="bottom"
+              style={{ cursor: "grab" }}
+              draggable
+              onDragEnd={(event) => {
+                const { lng, lat } = event.lngLat;
+                setVenueCoordinates({ lon: lng, lat: lat });
+                if (onPinMove) {
+                    onPinMove({ lon: lng, lat: lat });
+                }
+              }}
+            />
+          )}
 
-        {/* TODO: implement venue layer instead of marker */}
-        {/* <VenueLayer /> */}
-        {id === 'main-app-map' && exampleVenuesGeoJSON.features.length > 0 && exampleVenuesGeoJSON.features.map((venue) => (
+        {id === "main-app-map" &&
+          exampleVenuesGeoJSON.features.map((venue) => (
             <Marker
               key={venue.properties.id}
               longitude={venue.geometry.coordinates[0]}
@@ -115,19 +124,15 @@ const MapComponent = ({ id } : { id: string}) => {
               anchor="bottom"
               style={{ cursor: "pointer" }}
             />
-        ))}
+          ))}
 
-        {id === 'main-app-map' && (
-          <Marker
-            key="user-location-marker"
-            longitude={-3.439}
-            latitude={56.396}
-          >
+        {id === "main-app-map" && (
+          <Marker key="user-location-marker" longitude={-3.439} latitude={56.396}>
             <div className="bg-secondary-500 w-3 h-3 rounded-full border-2 border-white"></div>
           </Marker>
         )}
 
-        <NavigationControl position='bottom-right' />
+        <NavigationControl position="bottom-right" />
       </Map>
     </div>
   );

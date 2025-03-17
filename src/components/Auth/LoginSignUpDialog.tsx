@@ -28,7 +28,7 @@ const LoginSignUpDialog = () => {
                         },
                     ]}
                 />
-                <Divider />
+                <Divider classNames="my-4"   />
                 <div className="text-center">Or</div>
                 <div>
                     <button

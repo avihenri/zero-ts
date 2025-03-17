@@ -4,5 +4,6 @@ export const ENV = {
     MAPBOX_KEY: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
     GEOAPLIFY_API_KEY: import.meta.env.VITE_GEOAPLIFY_API_KEY,
     GEOAPIFY_SEARCH_URL: import.meta.env.VITE_GEOAPLIFY_SEARCH_URL,
+    GEOAPIFY_REVERSE_URL: import.meta.env.VITE_GEOAPLIFY_REVERSE_URL,
   };
   

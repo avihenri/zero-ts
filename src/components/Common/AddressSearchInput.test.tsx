@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import GeoapifySearch from "./GeoapifySearch";
+import AddressSearchInput from "./AddressSearchInput";
 
 const mockOnChange = jest.fn();
 const mockOptions = [
@@ -43,19 +43,19 @@ global.fetch = jest.fn(() =>
   })
 ) as jest.Mock;
 
-describe("GeoapifySearch Component", () => {
+describe("AddressSearchInput Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   test("renders input field with placeholder", () => {
-    render(<GeoapifySearch onChange={mockOnChange} placeholder="Search an address" />);
+    render(<AddressSearchInput onChange={mockOnChange} placeholder="Search an address" />);
     const input = screen.getByPlaceholderText("Search an address");
     expect(input).toBeInTheDocument();
   });
 
   test("renders input field with value", () => {
-    render(<GeoapifySearch onChange={mockOnChange} value="123 Main St" />);
+    render(<AddressSearchInput onChange={mockOnChange} value="123 Main St" />);
     const input = screen.getByDisplayValue("123 Main St");
     expect(input).toBeInTheDocument();
   });
