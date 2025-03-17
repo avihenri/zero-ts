@@ -21,7 +21,7 @@ const UserMenu = () => {
 
     return (
         <div
-            className="flex flex-col justify-between  h-full max-h-[calc(100vh-6rem)]"
+            className="flex flex-col justify-between h-full max-h-[calc(100vh-6rem)]"
             data-testid="user-menu"
         >
                 <div
@@ -43,12 +43,12 @@ const UserMenu = () => {
                     </button>
                 </div>
 
-                <Divider classNames="my-4" />
                 <div
                     className="flex flex-col justify-between h-full"
                     data-testid="user-menu-dropdown-content"
                 >
                     <div>
+                        <Divider classNames="my-4" />
                         <MenuItem
                             type="app"
                             onClick={handleClick}
