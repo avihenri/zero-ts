@@ -11,7 +11,7 @@ const VenueListButton = () => {
     return (
         <button
             type="button"
-            className="absolute top-16 sm:top-4 left-1/2 sm:left-1 -translate-x-1/2 sm:translate-x-0 h-8 sm:h-9 flex justify-center items-center group mr-1 px-2 bg-grey-950 p-1 border border-primary-200 rounded-md shadow-md z-30 ml-2"
+            className="absolute top-16 sm:top-4 left-1/2 w-11/12 sm:w-[7.5rem] sm:left-1 -translate-x-1/2 sm:translate-x-0 h-8 sm:h-9 flex justify-center items-center group sm:mr-1 px-2 bg-grey-950 p-1 border border-primary-200 rounded-md shadow-[0_0px_12px_rgba(0,255,255,0.6)] hover:shadow-cyan-500/50 z-30 sm:ml-2"
             onClick={() => {
                 setRightPanel(PANEL_CONTENT.CLOSED);
                 setLeftPanel((prev) => ({
