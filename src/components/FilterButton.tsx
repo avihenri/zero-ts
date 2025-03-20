@@ -1,19 +1,25 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { BiSliderAlt } from "react-icons/bi";
 import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
 import { PANEL_CONTENT } from "../state/consts/panels";
 import { rightPanelStateAtom } from "../state/atoms/rightPanelStateAtom";
 import { selectedTagsStateAtom } from "../state/atoms/selectedTagsStateAtom";
+import clsx from "clsx";
 
 const FilterButton = () => {
     const selectedTags = useRecoilValue(selectedTagsStateAtom);
-    const setLeftPanel = useSetRecoilState(leftPanelStateAtom);
+    const [{ currentPanel:leftPanel, previousPanel }, setLeftPanel] = useRecoilState(leftPanelStateAtom);
     const setRightPanel = useSetRecoilState(rightPanelStateAtom);
+
+    const isVenueListPrevPanel = previousPanel === PANEL_CONTENT.VENUE_LIST;
     
     return (
         <button
             type="button"
-            className="flex justify-center items-center relative group mr-1 px-2 bg-grey-950 p-1 border border-primary-200 rounded-md shadow-md"
+            className={clsx(
+                "flex justify-center items-center relative group mr-1 px-2 bg-grey-950 p-1 border border-primary-200 rounded-md",
+                isVenueListPrevPanel || leftPanel !== PANEL_CONTENT.VENUE_LIST ? "shadow-[0_0px_12px_rgba(0,255,255,0.6)]" : "shadow-md",
+            )}
             onClick={(e) => {
                 e.stopPropagation();
                 setRightPanel(PANEL_CONTENT.CLOSED);

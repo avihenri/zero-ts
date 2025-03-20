@@ -1,9 +1,19 @@
+import { useRecoilValue } from "recoil";
+import { leftPanelStateAtom } from "../state/atoms/leftPanelStateAtom";
+import { PANEL_CONTENT } from "../state/consts/panels";
+import clsx from "clsx";
 import { FaSearch } from "react-icons/fa";
 
 const SearchVenueInput = () => {
+  const { currentPanel:leftPanel, previousPanel } = useRecoilValue(leftPanelStateAtom);
+  const isVenueListPrevPanel = previousPanel === PANEL_CONTENT.VENUE_LIST;
+
     return (
       <div
-        className="bg-grey-950 text-primary-200 rounded-md shadow-md flex w-full items-center border border-1 py-1 border-primary-200"
+        className={clsx(
+          "bg-grey-950 text-primary-200 rounded-md flex w-full items-center border border-1 py-1 border-primary-200",
+          isVenueListPrevPanel || leftPanel !== PANEL_CONTENT.VENUE_LIST ? "shadow-[0_0px_12px_rgba(0,255,255,0.6)]" : "shadow-md",
+        )}
         data-testid="search-venue-input"
       >
         <input
