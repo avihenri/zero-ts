@@ -12,7 +12,7 @@ const SavedVenueListPanel = () => {
             className="h-[92%]"
             data-testid="saved-venue-list-panel"
         >
-            <div className="h-full scrollbar-always-visible pb-4">
+            <div className="h-full scrollbar-always-visible pb-2">
                 {venues.length ? venues.map((venue) => (
                     <VenueListItem key={venue.id} venue={venue} />
                 )) : (

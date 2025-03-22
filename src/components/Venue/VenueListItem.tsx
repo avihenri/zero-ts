@@ -41,13 +41,13 @@ const VenueListItem = ({ venue }: VenueListItemProps) => {
                     })()}
                     <span className="absolute left-6 top-1 text-xs">{venue.venue_type.name}</span>
                 </div>
-                <div className="flex justify-end w-1/2" data-testid="venue-list-buttons">
+                <div className="flex justify-end items-end w-1/2" data-testid="venue-list-buttons">
                     <div className="mr-1">
                         <SaveVenueButton />
                     </div>
                     <button
                         type="button"
-                        className="p-2 text-grey-950 font-semibold text-sm rounded-md bg-primary-400 hover:bg-primary-500"
+                        className="px-2 py-1 text-grey-950 font-semibold text-sm rounded-md bg-primary-400 hover:bg-primary-500"
                         onClick={() => {
                             setRightPanel(PANEL_CONTENT.CLOSED);
                             setSelectedVenueDetails(venue);

@@ -10,6 +10,7 @@ import Divider from "./Common/Divider";
 import { GripVertical } from "lucide-react";
 import useScreenSize from "../hooks/useScreenSize";
 import { useResizablePanel } from "../hooks/useResizablePanel";
+import UserAccountPanel from "./User/UserAccountPanel";
 
 const RightPanel = () => {
     const [rightPanel, setRightPanel] = useRecoilState(rightPanelStateAtom);
@@ -55,6 +56,7 @@ const RightPanel = () => {
 
             {rightPanel === PANEL_CONTENT.USER_MENU && <UserMenu />}
             {rightPanel === PANEL_CONTENT.SAVED_VENUE_LIST && <SavedVenueListPanel />}
+            {rightPanel === PANEL_CONTENT.USER_ACCOUNT && <UserAccountPanel />}
 
             {!isSmallScreen && (
                 <div

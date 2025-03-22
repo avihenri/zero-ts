@@ -1,13 +1,20 @@
 export const PANEL_CONTENT = {
-    MAIN_MENU: 'MAIN_MENU',
-    USER_MENU: 'USER_MENU',
-    FILTER_SORT: 'FILTER_SORT',
-    VENUE_LIST: 'VENUE_LIST',
-    SAVED_VENUE_LIST: 'SAVED_VENUE_LIST',
-    VIEW_VENUE: 'VIEW_VENUE',
-    ADD_VENUE: 'ADD_VENUE',
-    CLOSED: 'CLOSED',
-  } as const;
+  // navigation panels
+  MAIN_MENU: 'MAIN_MENU',
+  USER_MENU: 'USER_MENU',
+
+  // venue panels
+  FILTER_SORT: 'FILTER_SORT',
+  VENUE_LIST: 'VENUE_LIST',
+  SAVED_VENUE_LIST: 'SAVED_VENUE_LIST',
+  VIEW_VENUE: 'VIEW_VENUE',
+  ADD_VENUE: 'ADD_VENUE',
+
+  // user panels
+  USER_ACCOUNT: 'USER_ACCOUNT',
+  
+  CLOSED: 'CLOSED',
+} as const;
 
   export type PanelContent = keyof typeof PANEL_CONTENT;
 
@@ -18,6 +25,7 @@ export const PANEL_CONTENT = {
     [PANEL_CONTENT.VIEW_VENUE]: 'Venue Details',
     [PANEL_CONTENT.ADD_VENUE]: 'Add Venue',
     [PANEL_CONTENT.SAVED_VENUE_LIST]: 'Saved Venues',
+    [PANEL_CONTENT.USER_ACCOUNT]: 'Account',
   };
   
   

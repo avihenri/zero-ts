@@ -4,19 +4,16 @@ import { MenuItem } from "./MenuItem";
 import { MdFavorite, MdLogout, MdManageAccounts } from "react-icons/md";
 import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
 import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
-import { PANEL_CONTENT } from "../../state/consts/panels";
+import { PANEL_CONTENT, PanelContent } from "../../state/consts/panels";
 
 const UserMenu = () => {
     const setLeftPanel = useSetRecoilState(leftPanelStateAtom);
     const setRightPanel = useSetRecoilState(rightPanelStateAtom);
 
-    const handleClick = () => {
+    const handleClick = (panel : PanelContent) => {
         console.log("click");
-    };
-
-    const handleSavedVenuesClick = () => {
         setLeftPanel({ currentPanel: PANEL_CONTENT.CLOSED, previousPanel: null });
-        setRightPanel(PANEL_CONTENT.SAVED_VENUE_LIST);
+        setRightPanel(panel);
     };
 
     return (
@@ -31,7 +28,7 @@ const UserMenu = () => {
                     <button
                         type="button"
                         className="flex"
-                        onClick={handleClick}
+                        onClick={() => handleClick(PANEL_CONTENT.USER_ACCOUNT)}
                         data-testid="user-icon-button"
                     >
                         <span
@@ -51,7 +48,7 @@ const UserMenu = () => {
                         <Divider classNames="my-4" />
                         <MenuItem
                             type="app"
-                            onClick={handleClick}
+                            onClick={() => handleClick(PANEL_CONTENT.USER_ACCOUNT)}
                             icon={<MdManageAccounts />}
                             iconClassName="mr-2"
                         >
@@ -59,7 +56,7 @@ const UserMenu = () => {
                         </MenuItem>
                         <MenuItem
                             type="app"
-                            onClick={handleSavedVenuesClick}
+                            onClick={() => handleClick(PANEL_CONTENT.SAVED_VENUE_LIST)}
                             icon={<MdFavorite />}
                             iconClassName="mr-2"
                         >
@@ -70,7 +67,7 @@ const UserMenu = () => {
                         <Divider classNames="my-4" />
                         <MenuItem
                             type="system"
-                            onClick={handleClick}
+                            // onClick={handleClick}
                             icon={<MdLogout />}
                             iconClassName="mr-2"
                         >

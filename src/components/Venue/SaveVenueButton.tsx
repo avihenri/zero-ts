@@ -10,7 +10,7 @@ const SaveVenueButton = ({ className } : { className?: string}) => {
             type="button"
             className={
                 clsx(
-                    "p-2 text-grey-950 font-semibold text-sm rounded-md bg-secondary-300 hover:bg-secondary-400 group",
+                    "px-2 py-1 text-grey-950 font-semibold text-sm rounded-md bg-secondary-300 hover:bg-secondary-400 group",
                     className
                 )
             }

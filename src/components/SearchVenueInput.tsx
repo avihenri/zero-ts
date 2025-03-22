@@ -18,7 +18,7 @@ const SearchVenueInput = () => {
       >
         <input
           type="text"
-          placeholder="Search venue, dietary, 0% drink..."
+          placeholder="Search for venue..."
           className="bg-transparent pl-2 outline-none text-primary-50 placeholder-grey-400 w-full"
         />
         <FaSearch className="text-primary-200 text-lg mx-2" />

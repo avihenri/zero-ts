@@ -11,7 +11,7 @@ describe("SearchVenueInput Component", () => {
       </RecoilRoot>
     );
 
-    const inputElement = screen.getByPlaceholderText("Search venue, dietary, 0% drink...");
+    const inputElement = screen.getByPlaceholderText("Search for venue...");
     expect(inputElement).toBeInTheDocument();
   });
 
@@ -22,7 +22,7 @@ describe("SearchVenueInput Component", () => {
       </RecoilRoot>
     );
 
-    const inputElement = screen.getByPlaceholderText("Search venue, dietary, 0% drink...") as HTMLInputElement;
+    const inputElement = screen.getByPlaceholderText("Search for venue...") as HTMLInputElement;
     fireEvent.change(inputElement, { target: { value: "Cocktail Bar" } });
 
     expect(inputElement.value).toBe("Cocktail Bar");
