@@ -5,7 +5,7 @@ import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
 import { PANEL_CONTENT } from "../../state/consts/panels";
 import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
 
-const user = true //  Math.random() < 0.5; // testing purposes TODO: remove
+const user = Math.random() < 0.5; // testing purposes TODO: remove
 
 const TopNavBar = () => {
   const setloginSignupDialogOpen = useSetRecoilState(loginSignupDialogOpenStateAtom);
