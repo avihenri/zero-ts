@@ -6,6 +6,7 @@ import { Venue, venueTypeIcons } from "../../services/venueService";
 import { selectedVenueDetailsStateAtom } from "../../state/atoms/selectedVenueDetailsStateAtom";
 import SaveVenueButton from "./SaveVenueButton";
 import { MdLocationPin } from "react-icons/md";
+import { hoveredVenueStateAtom } from "../../state/atoms/hoveredVenueStateAtom";
 
 type VenueListItemProps = {
     venue: Venue;
@@ -15,11 +16,14 @@ const VenueListItem = ({ venue }: VenueListItemProps) => {
     const setLeftPanel = useSetRecoilState(leftPanelStateAtom);
     const setRightPanel = useSetRecoilState(rightPanelStateAtom);
     const setSelectedVenueDetails = useSetRecoilState(selectedVenueDetailsStateAtom);
+    const setHoveredVenue = useSetRecoilState(hoveredVenueStateAtom);
 
     return (
         <div
-            className="w-full min-h-24 p-2 my-2 rounded-md flex flex-col justify-between bg-grey-900"
+            className="w-full min-h-24 p-2 my-2 rounded-md flex flex-col justify-between bg-grey-900 hover:bg-grey-800"
             data-testid="venue-list-item"
+            onMouseEnter={() => setHoveredVenue(venue)}
+            onMouseLeave={() => setHoveredVenue(null)}
         >
             <div className="w-full" data-testid="venue-list-header">
                 <div

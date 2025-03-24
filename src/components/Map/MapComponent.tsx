@@ -5,32 +5,33 @@ import { useRecoilState } from "recoil";
 import { venueCoordinatesStateAtom } from "../../state/atoms/venueCoordinatesStateAtom";
 import { CoordinatesType } from "../../ts/types";
 import { ENV } from "../../config/env";
+import VenueLayer from "./VenueLayer";
 
 const MAPBOX_TOKEN = ENV.MAPBOX_KEY;
 
-const exampleVenuesGeoJSON = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      geometry: { type: "Point", coordinates: [-3.45, 56.396] },
-      properties: {
-        name: "Venue 1",
-        type: "Bar",
-        id: "venue-1",
-      },
-    },
-    {
-      type: "Feature",
-      geometry: { type: "Point", coordinates: [-3.439530, 56.399146] },
-      properties: {
-        name: "Venue 2",
-        type: "Cafe",
-        id: "venue-2",
-      },
-    },
-  ],
-};
+// const exampleVenuesGeoJSON = {
+//   type: "FeatureCollection",
+//   features: [
+//     {
+//       type: "Feature",
+//       geometry: { type: "Point", coordinates: [-3.45, 56.396] },
+//       properties: {
+//         name: "Venue 1",
+//         type: "Bar",
+//         id: "venue-1",
+//       },
+//     },
+//     {
+//       type: "Feature",
+//       geometry: { type: "Point", coordinates: [-3.439530, 56.399146] },
+//       properties: {
+//         name: "Venue 2",
+//         type: "Cafe",
+//         id: "venue-2",
+//       },
+//     },
+//   ],
+// };
 
 const MapComponent = ({ id, onPinMove }: { id: string; onPinMove?: (coords: CoordinatesType) => void }) => {
   const mapRef = useRef<MapRef>(null);
@@ -41,19 +42,10 @@ const MapComponent = ({ id, onPinMove }: { id: string; onPinMove?: (coords: Coor
   
   // TODO: add localization
   const [viewState, setViewState] = useState({
-    longitude: -3.439,
-    latitude: 56.396,
+    longitude: -3.404,
+    latitude: 56.415,
     zoom: 13,
   });
-
-  // const onLoad = () => {
-  //   if (!mapRef.current) return;
-  
-  //   const map = mapRef.current;
-  //   const image = new Image();
-  //   image.onload = () => map.addImage("pin", image, { sdf: true });
-  //   image.src = Pin;
-  // };
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -88,7 +80,6 @@ const MapComponent = ({ id, onPinMove }: { id: string; onPinMove?: (coords: Coor
           key={id}
           ref={mapRef}
           {...viewState}
-          // onLoad={onLoad}
           onMove={(evt) => setViewState(evt.viewState)}
           mapStyle="mapbox://styles/mapbox/dark-v10"
           style={{ width: "100%", height: "100%" }}
@@ -116,15 +107,8 @@ const MapComponent = ({ id, onPinMove }: { id: string; onPinMove?: (coords: Coor
           )}
 
         {id === "main-app-map" &&
-          exampleVenuesGeoJSON.features.map((venue) => (
-            <Marker
-              key={venue.properties.id}
-              longitude={venue.geometry.coordinates[0]}
-              latitude={venue.geometry.coordinates[1]}
-              anchor="bottom"
-              style={{ cursor: "pointer" }}
-            />
-          ))}
+          <VenueLayer />
+        }
 
         {id === "main-app-map" && (
           <Marker key="user-location-marker" longitude={-3.439} latitude={56.396}>

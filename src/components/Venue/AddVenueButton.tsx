@@ -12,7 +12,7 @@ const AddVenueButton = () => {
     return (
         <button
             type="button"
-            className="h-9 flex justify-center items-center w-full mt-2 px-2 text-secondary-400 font-semibold border border-secondary-400 py-1 rounded-md shadow-[0_0_8px_rgba(255,111,238,0.6)] hover:shadow-[0_0_10px_rgba(255,111,238,0.6)] hover:text-white"
+            className="relative h-9 flex justify-center items-center w-full mt-2 px-2 text-secondary-400 font-semibold border border-secondary-400 py-1 rounded-md shadow-[0_0_8px_rgba(255,111,238,0.6)] hover:shadow-[0_0_10px_rgba(255,111,238,0.6)] hover:text-white group"
             onClick={() => {
                 setRightPanel(PANEL_CONTENT.CLOSED);
                 setLeftPanel((prev) => ({
@@ -22,7 +22,9 @@ const AddVenueButton = () => {
             }}
             data-testid="add-venue-button"
         >
-            <FaPlus className="" data-testid="venue-list-icon" />
+            <div className="absolute inset-0 rounded-md shadow-[inset_0_0_8px_rgba(255,111,238,0.6)] pointer-events-none group-hover:shadow-[inset_0_0_8px_rgba(0,0,0,0.0)]"></div>
+
+            <FaPlus className="absolute left-2 top-2" data-testid="venue-list-icon" />
             <span className="ml-2 font-semibold" data-testid="venue-list-text">Add Venue</span>
         </button>
     );

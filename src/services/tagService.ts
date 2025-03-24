@@ -11,6 +11,7 @@ export type Tag = {
     id: string;
     name: string;
     type?: TagType;
+    description?: string|null;
 };
 
 type TagApiResponse = {

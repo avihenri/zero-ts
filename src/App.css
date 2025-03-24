@@ -21,6 +21,16 @@ html, body, #root {
   background-color: #303136; /* grey-950 */
 }
 
+.custom-popup .mapboxgl-popup-content {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.custom-popup .mapboxgl-popup-close-button {
+  display: none;
+}
 
 /* #root {
   max-width: 1280px;
