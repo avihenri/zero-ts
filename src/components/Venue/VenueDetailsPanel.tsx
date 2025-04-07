@@ -6,6 +6,7 @@ import Pill from "../Common/Pill";
 import { FaAddressBook, FaGlobe, FaPhone } from "react-icons/fa";
 import { Tag } from "../../services/tagService";
 import SaveVenueButton from "./SaveVenueButton";
+import { venueTypeIcons } from "../../services/venueService";
 
 const VenueDetailsPanel = () => {
     const panelRef = useRef<HTMLDivElement | null>(null);
@@ -26,7 +27,15 @@ const VenueDetailsPanel = () => {
                         {venueDetails?.name}
                     </div>
                     <div className="w-full px-2" data-testid="venue-list-category">
-                        <p className="text-primary-50 uppercase font-semibold mb-2">{venueDetails?.venue_type.name}</p>
+                        <p className="text-primary-50 uppercase font-semibold mb-2 flex">
+                            {(() => {
+                                const Icon = venueDetails?.venue_type.name 
+                                    ? venueTypeIcons[venueDetails.venue_type.name.toLowerCase()] 
+                                    : null;
+                                return Icon ? <Icon className="pr-1" /> : null;
+                            })()}
+                            {venueDetails?.venue_type.name}
+                        </p>
                         <p className="relative text-grey-400 text-sm py-2 pl-5">
                             <FaAddressBook className="absolute left-0 top-[0.70rem]" />
                             {venueDetails?.formatted_address}

@@ -22,7 +22,7 @@ const AddVenueButton = () => {
             }}
             data-testid="add-venue-button"
         >
-            <div className="absolute inset-0 rounded-md shadow-[inset_0_0_8px_rgba(255,111,238,0.6)] pointer-events-none group-hover:shadow-[inset_0_0_8px_rgba(0,0,0,0.0)]"></div>
+            <div className="absolute inset-0 rounded-md  pointer-events-none"></div>
 
             <FaPlus className="absolute left-2 top-2" data-testid="venue-list-icon" />
             <span className="ml-2 font-semibold" data-testid="venue-list-text">Add Venue</span>

@@ -32,6 +32,19 @@ html, body, #root {
   display: none;
 }
 
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  align-self: center;
+  border-bottom: none;
+  border-top-color: #8BFFF5 !important;
+}
+
+.mapboxgl-popup-tip {
+  border: 6px solid transparent !important;
+  height: 0;
+  width: 0;
+  z-index: 1;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
