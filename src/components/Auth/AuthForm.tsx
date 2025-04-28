@@ -3,13 +3,18 @@ import { useState } from "react";
 import Input from "../Common/Input";
 import { Eye, Info, Mail } from "lucide-react";
 import { Popover } from "../Common/Popover";
-
-interface AuthFormProps {
-  mode: "login" | "signup";
-}
+import { MdPerson } from "react-icons/md";
+import { login, register } from "../../services/userService";
+import { useSetRecoilState } from "recoil";
+import { AuthFormProps, UserAuthResponse } from "../../ts/interfaces";
+import { loginSignupDialogOpenStateAtom } from "../../state/atoms/loginSignupDialogOpenStateAtom";
+import { useAuth } from "../../hooks/useAuth";
 
 const AuthForm = ({ mode }: AuthFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -17,6 +22,9 @@ const AuthForm = ({ mode }: AuthFormProps) => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+  const { setAuthUserWithLocalStorage } = useAuth();
+  const setloginSignupDialogOpen = useSetRecoilState(loginSignupDialogOpenStateAtom);
 
   const [touched, setTouched] = useState({
     email: false,
@@ -41,17 +49,65 @@ const AuthForm = ({ mode }: AuthFormProps) => {
     return value !== password ? "Passwords do not match" : "";
   };
 
+  const handleSignUp = async () => {
+    const userData = {
+      first_name: firstName,
+      last_name: lastName,
+      username,
+      email,
+      password,
+      password_confirmation: confirmPassword,
+    };
+
+    register<UserAuthResponse>(userData)
+      .then((response) => {
+        const user = response.user;
+        setAuthUserWithLocalStorage(user);
+        setloginSignupDialogOpen(false);
+      })
+      .catch((error) => {
+        console.error("User registration failed:", error);
+      });
+  };
+
+  const handleLogin = async () => {
+    const credentials = {
+      email,
+      password,
+    };
+
+    login(credentials)
+      .then((response) => {
+        const user = response.user;
+        setAuthUserWithLocalStorage(user);
+        setloginSignupDialogOpen(false);
+      })
+      .catch(() => {
+        setEmailError("Invalid email or password");
+      });
+  };
+
   return (
     <Form.Root
       className="space-y-3"
       onSubmit={(event) => {
         event.preventDefault();
         setEmailError(validateEmail(email));
-        setPasswordError(validatePassword(password));
-        if (mode === "signup") setConfirmPasswordError(validateConfirmPassword(confirmPassword));
+        if (mode === "signup") {
+          setPasswordError(validatePassword(password));
+        }
 
         if (!emailError && !passwordError && !confirmPasswordError) {
-          console.log("Form submitted:", { email, password, confirmPassword });
+          if (mode === "login") {
+            handleLogin();
+            return;
+          }
+
+          if (mode === "signup") {
+            setConfirmPasswordError(validateConfirmPassword(confirmPassword))
+            handleSignUp();
+            return;
+          };
         }
       }}
     >
@@ -60,7 +116,43 @@ const AuthForm = ({ mode }: AuthFormProps) => {
       {touched.password && passwordError && <p className="text-red-400 text-sm">{passwordError}</p>}
       {touched.confirmPassword && confirmPasswordError && (
             <p className="text-red-400 text-sm">{confirmPasswordError}</p>
-        )}
+      )}
+
+      {mode === "signup" && (
+        <>
+          <Input
+            name="first_name"
+            type="text"
+            isRequired
+            placeholder="Enter your first name*"
+            value={firstName}
+            setInputValue={(value: string|null) => {
+              setFirstName(value || "");
+            }}
+            icon={<MdPerson size={20} />}
+          />
+            <Input
+            name="last_name"
+            type="text"
+            isRequired
+            placeholder="Enter your last name*"
+            value={lastName}
+            setInputValue={(value: string|null) => {
+              setLastName(value || "");
+            }}
+            icon={<MdPerson size={20} />}
+          />
+            <Input
+            name="username"
+            type="text"
+            isRequired
+            placeholder="Enter a username*"
+            value={username}
+            setInputValue={(value: string|null) => setUsername(value || "")}
+            icon={<MdPerson size={20} />}
+          />
+        </>
+      )}
 
       <Input
         name="email"

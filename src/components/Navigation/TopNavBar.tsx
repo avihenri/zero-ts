@@ -4,13 +4,14 @@ import { loginSignupDialogOpenStateAtom } from "../../state/atoms/loginSignupDia
 import { leftPanelStateAtom } from "../../state/atoms/leftPanelStateAtom";
 import { PANEL_CONTENT } from "../../state/consts/panels";
 import { rightPanelStateAtom } from "../../state/atoms/rightPanelStateAtom";
-
-const user = Math.random() < 0.5; // testing purposes TODO: remove
+import { useAuth } from "../../hooks/useAuth";
 
 const TopNavBar = () => {
   const setloginSignupDialogOpen = useSetRecoilState(loginSignupDialogOpenStateAtom);
   const setLeftPanel = useSetRecoilState(leftPanelStateAtom);
   const setRightPanel = useSetRecoilState(rightPanelStateAtom);
+  const { user } = useAuth();
+  const userInitial = user ? `${user?.first_name.charAt(0)}` : null;
 
   const handleUserIconClick = () => {
     setLeftPanel({ currentPanel: PANEL_CONTENT.CLOSED, previousPanel: null });
@@ -57,7 +58,13 @@ const TopNavBar = () => {
         onClick={handleUserIconClick}
         data-testid="user-icon-button"
       >
-        <FaUserCircle data-testid="user-icon" className="text-2xl cursor-pointer hover:text-primary-400 hover:scale-105" />
+        {userInitial ? (
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary-200 text-grey-950 uppercase font-bold">
+            {userInitial}
+          </div>
+        ) : (
+          <FaUserCircle data-testid="user-icon" className="text-2xl cursor-pointer hover:text-primary-400 hover:scale-105" />
+        )}
       </button>
     </nav>
   );

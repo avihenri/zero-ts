@@ -11,7 +11,7 @@ const LoginSignUpDialog = () => {
 
     return (
         <Dialog isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <div data-testid="loginSignUp-dialog">
+            <div data-testid="loginSignUp-dialog" className="max-h-[450px] scrollbar-always-visible px-2">
                 <Tabs
                     defaultValue="login"
                     // tabActiveColor="bg-action-400"
@@ -28,7 +28,7 @@ const LoginSignUpDialog = () => {
                         },
                     ]}
                 />
-                <Divider classNames="my-4"   />
+                <Divider classNames="my-4" />
                 <div className="text-center">Or</div>
                 <div>
                     <button

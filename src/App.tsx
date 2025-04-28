@@ -15,6 +15,7 @@ import { venuesStateAtom } from './state/atoms/venuesStateAtom';
 import { venuesTotalStateAtom } from './state/atoms/venuesTotalStateAtom';
 import { tagsStateAtom } from './state/atoms/tagsStateAtom';
 import { fetchTags } from './services/tagService';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
   const { currentPanel:leftPanel, previousPanel } = useRecoilValue(leftPanelStateAtom);
@@ -23,19 +24,24 @@ function App() {
   const setTags = useSetRecoilState(tagsStateAtom);
 
   const isVenueListPrevPanel = previousPanel === PANEL_CONTENT.VENUE_LIST;
+  const { authenticated, bootstrapped } = useAuth();
 
   useEffect(() => {
+    if (bootstrapped && authenticated) {
       fetchVenues()
-          .then((response) => {
-              setVenues(response.data);
-              setVenueTotal(response.meta?.total || response.data.length);
-          });
-        fetchTags()
-          .then((response) => {
-              setTags(response.data);
-          }
-      );
-  }, [setTags, setVenueTotal, setVenues]);
+        .then((response) => {
+          setVenues(response.data);
+          setVenueTotal(response.meta?.total || response.data.length);
+        });
+
+      fetchTags()
+        .then((response) => {
+          setTags(response.data);
+        });
+    }
+  }, [bootstrapped, authenticated, setTags, setVenueTotal, setVenues]);
+
+  // TODO: show loading spinner while fetching data
 
   return (
     <div className="flex flex-col h-dvh w-dvh overflow-hidden">

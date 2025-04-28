@@ -51,4 +51,31 @@ export type VenueFormDataType = {
   selectedTagIds: string[];
 };
 
+// =================== USER ===================
+export type UserResponse = {
+    id: number;
+    first_name: string;
+    last_name: string;
+    username: string;
+    email: string;
+    email_verified_at?: string|null;
+    created_at?: string;
+    updated_at?: string;
+    slug?: string;
+}
+
+// export type UserData = {
+//     first_name: string;
+//     last_name: string;
+//     username: string;
+//     email: string;
+//     password: string;
+//     password_confirmation: string;
+//     profile?: {
+//         name?: string|null;
+//         bio?: string|null;
+//         date_of_birth?: string|null;
+//         gender?: string|null;
+//     }
+// }
   
