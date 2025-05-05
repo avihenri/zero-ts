@@ -17,6 +17,7 @@ const venuesGeoJSON: FeatureCollection<Point, Venue> = {
       properties: {
         id: "10",
         name: "Spar Scone",
+        venue_type_tag_id: "1739980068274896",
         venue_type: {
             id: "1739980068274896",
             name: "Shop",
@@ -31,59 +32,48 @@ const venuesGeoJSON: FeatureCollection<Point, Venue> = {
             ]
         },
         formatted_address: "Spar, 104 Abbey Road, Scone, PH2 6RU, United Kingdom",
-        housenumber: "104",
-        street: "Abbey Road",
-        city: "Scone",
-        country: "United Kingdom",
-        state: "Scotland",
         country_code: "gb",
         timezone: "Europe/London",
         phone: "+441738210210",
         website: "https://scone-arms.perthshireonline.com/en/",
-        tags_by_type: {
-            dietary_types: [
-                {
-                    id: "1739980068352952",
-                    name: "Gluten free",
-                    description: "Facilis dolores ea sapiente earum et ut quo repudiandae."
-                },
-                {
-                    id: "1739980068233600",
-                    name: "Lactose free",
-                    description: "Non recusandae adipisci."
-                },
-                {
-                    id: "1739980068918284",
-                    name: "Vegan",
-                    description: "Ipsam neque molestias qui at."
-                }
-            ],
-            zero_drink_types: [
-                {
-                    id: "173998006881801",
-                    name: "Beer",
-                    description: "Aut illo quo qui id aut iusto et voluptatem."
-                },
-                {
-                    id: "1739980068632537",
-                    name: "Mocktail",
-                    description: "Culpa aliquam illo nemo officia cum sint quae."
-                }
-            ],
-            zero_drinks: [
-                {
-                    id: "1739980068842273",
-                    name: "Corona Zero",
-                    description: null
-                },
-                {
-                    id: "1739980068935629",
-                    name: "Guiness Zero",
-                    description: null
-                }
-            ]
-        }
-    },
+        tags: [
+          {
+              id: "1739980068352952",
+              name: "Gluten free",
+              description: "Facilis dolores ea sapiente earum et ut quo repudiandae."
+          },
+          {
+              id: "1739980068233600",
+              name: "Lactose free",
+              description: "Non recusandae adipisci."
+          },
+          {
+              id: "1739980068918284",
+              name: "Vegan",
+              description: "Ipsam neque molestias qui at."
+          },
+          {
+              id: "173998006881801",
+              name: "Beer",
+              description: "Aut illo quo qui id aut iusto et voluptatem."
+          },
+          {
+              id: "1739980068632537",
+              name: "Mocktail",
+              description: "Culpa aliquam illo nemo officia cum sint quae."
+          },
+          {
+              id: "1739980068842273",
+              name: "Corona Zero",
+              description: null
+          },
+          {
+              id: "1739980068935629",
+              name: "Guiness Zero",
+              description: null
+          }
+        ]
+      }
     },
     {
       type: "Feature",
@@ -91,6 +81,7 @@ const venuesGeoJSON: FeatureCollection<Point, Venue> = {
       properties: {
         id: "11",
         name: "Scone Arms",
+        venue_type_tag_id: "1739980068383227",
         venue_type: {
             id: "1739980068383227",
             name: "Bar",
@@ -114,45 +105,39 @@ const venuesGeoJSON: FeatureCollection<Point, Venue> = {
         timezone: "Europe/London",
         phone: "+441738551154",
         website: "https://www.spar.co.uk/store-locator/lan47441-spar-scone",
-        tags_by_type: {
-            dietary_types: [
-                {
-                    id: "1739980068352952",
-                    name: "Gluten free",
-                    description: "Facilis dolores ea sapiente earum et ut quo repudiandae."
-                },
-                {
-                    id: "1739980068918284",
-                    name: "Vegan",
-                    description: "Ipsam neque molestias qui at."
-                }
-            ],
-            zero_drink_types: [
-                {
-                    id: "173998006881801",
-                    name: "Beer",
-                    description: "Aut illo quo qui id aut iusto et voluptatem."
-                },
-                {
-                    id: "1739980068632537",
-                    name: "Mocktail",
-                    description: "Culpa aliquam illo nemo officia cum sint quae."
-                }
-            ],
-            zero_drinks: [
-                {
-                    id: "1739980068842273",
-                    name: "Corona Zero",
-                    description: null
-                },
-                {
-                    id: "1739980068935629",
-                    name: "Guiness Zero",
-                    description: null
-                }
-            ]
-        }
-    },
+        tags: [
+          {
+              id: "1739980068352952",
+              name: "Gluten free",
+              description: "Facilis dolores ea sapiente earum et ut quo repudiandae."
+          },
+          {
+              id: "1739980068918284",
+              name: "Vegan",
+              description: "Ipsam neque molestias qui at."
+          },
+          {
+              id: "173998006881801",
+              name: "Beer",
+              description: "Aut illo quo qui id aut iusto et voluptatem."
+          },
+          {
+              id: "1739980068632537",
+              name: "Mocktail",
+              description: "Culpa aliquam illo nemo officia cum sint quae."
+          },
+          {
+              id: "1739980068842273",
+              name: "Corona Zero",
+              description: null
+          },
+          {
+              id: "1739980068935629",
+              name: "Guiness Zero",
+              description: null
+          }
+        ]
+      }
     },
   ],
 };
@@ -192,7 +177,7 @@ const VenueLayer = () => {
       ...venue,
       venue_type: parseIfString(venue.venue_type),
       location: parseIfString(venue.location),
-      tags_by_type: parseIfString(venue.tags_by_type),
+      tags: parseIfString(venue.tags),
     };
     if (parsedVenue?.id) {
       setSelectedVenueId(parsedVenue.id);

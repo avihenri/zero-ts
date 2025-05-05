@@ -7,11 +7,10 @@ const CreateOrUpdateVenuePanel = ({ existingVenue } : {
 }) => {
     const [initialFormData, setInitialFormData] = useState<VenueFormDataType>({
         name: '',
-        venueTypeId: '',
-        address: '',
-        lat: null,
-        lon: null,
-        selectedTagIds: []
+        venue_type_tag_id: '',
+        formatted_address: '',
+        location: [null, null],
+        tag_ids: []
     });
 
     useEffect(() => {

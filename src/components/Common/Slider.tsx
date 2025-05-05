@@ -12,7 +12,8 @@ const Slider = ({ value, onValueChange } : SliderProps) => {
             value={[value]}
             onValueChange={(newValue) => onValueChange(newValue[0])}
             max={100}
-            step={10}
+            min={1}
+            step={1}
         >
         <SliderRadix.Track className="relative flex-grow h-[3px] bg-primary-50 rounded-full">
             <SliderRadix.Range className="absolute h-full bg-primary-600 rounded-full" />

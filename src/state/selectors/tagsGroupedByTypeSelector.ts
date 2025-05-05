@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
-import { Tag } from '../../services/tagService';
 import { tagsStateAtom } from '../atoms/tagsStateAtom';
+import { Tag } from '../../ts/types';
 
 export type TagsByType = {
   [typeName: string]: Tag[];

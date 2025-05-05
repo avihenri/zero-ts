@@ -3,25 +3,23 @@ import Divider from "../Common/Divider";
 import VenueSearchAndFiltersBar from "./VenueSearchAndFiltersBar";
 import VenueListItem from "./VenueListItem";
 import AddVenueButton from "./AddVenueButton";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { venuesStateAtom } from "../../state/atoms/venuesStateAtom";
-import { venuesTotalStateAtom } from "../../state/atoms/venuesTotalStateAtom";
 import { selectedTagsStateAtom } from "../../state/atoms/selectedTagsStateAtom";
-import { fetchVenues } from "../../services/venueService";
-import { distanceStateAtom } from "../../state/atoms/distanceStateAtom";
+import { useVenueData } from "../../hooks/useVenueData";
+import ClearFilterButton from "../ClearFiltersButton";
+import VenueResultsTotal from "./VenueResultsTotal";
 
 const VenueListPanel = () => {
     const panelRef = useRef<HTMLDivElement | null>(null);
-    const [venues, setVenues] = useRecoilState(venuesStateAtom);
-    const venueTotal = useRecoilValue(venuesTotalStateAtom);
-    const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsStateAtom);
-    const distance = useRecoilValue(distanceStateAtom);
+    const venues = useRecoilValue(venuesStateAtom);
+    const selectedTags = useRecoilValue(selectedTagsStateAtom);
+    const resetSelectedTags = useResetRecoilState(selectedTagsStateAtom);
+    const { resetVenues } = useVenueData();
 
     const handleClearFilters = () => {
-        setSelectedTags([]);
-        fetchVenues().then((response) => {
-            setVenues(response.data);
-        });
+        resetSelectedTags();
+        resetVenues();
     }
     
     return (
@@ -32,18 +30,21 @@ const VenueListPanel = () => {
         >
             <div className="h-full overflow-auto pl-1 pr-4 pb-4 mr-2">
                 <div className="py-2">
-                    <VenueSearchAndFiltersBar classNames="w-full" />
+                    <VenueSearchAndFiltersBar classNames="w-[96%] mx-auto" />
                     <AddVenueButton />
                     {selectedTags.length > 0 && (
-                        <button type="button" className="hover:text-primary-50 text-center w-full mt-2" onClick={() => handleClearFilters()}>Clear {selectedTags.length} filters</button>
+                        <div className="mt-2">
+                            <ClearFilterButton
+                            selectedTags={selectedTags}
+                            handleClick={handleClearFilters}
+                        />
+                        </div>
                     )}
                 </div>
-                <div className="text-primary-500 font-bold flex justify-center w-full">
-                    <span className='px-2 text-xs bg-grey-950 border-grey-500 rounded'>
-                        Showing {venues.length} results of {venueTotal} within {distance} miles
-                    </span>
-                </div>
+                <VenueResultsTotal />
                 <Divider classNames="my-4" />
+
+                {/* add loading message while fetching data */}
 
                 {venues.length ? venues.map((venue) => (
                     <VenueListItem key={venue.id} venue={venue} />

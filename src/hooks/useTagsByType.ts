@@ -1,12 +1,14 @@
 import { useRecoilValue } from "recoil";
 import { tagsGroupedByTypeSelector } from "../state/selectors/tagsGroupedByTypeSelector";
-import { Tag, TagType } from "../services/tagService";
+import { Tag, TagType } from "../ts/types";
 
 interface TagsByType {
-    venueTypes: Tag[];
     dietaries: Tag[];
+    dietaryOptions: Tag[];
+    features: Tag[];
+    venueTypes: Tag[];
     zeroDrinkTypes: Tag[];
-    zeroDrinks: Tag[];
+    zeroDrinkOptions: Tag[];
 }
   
 const useTagsByType = (): TagsByType => {
@@ -19,10 +21,12 @@ const useTagsByType = (): TagsByType => {
         }));
 
     return {
-        venueTypes: mapTags(tagsByType.venue_type),
         dietaries: mapTags(tagsByType.dietary_type),
+        dietaryOptions: mapTags(tagsByType.dietary_option),
+        features: mapTags(tagsByType.feature),
+        venueTypes: mapTags(tagsByType.venue_type),
         zeroDrinkTypes: mapTags(tagsByType.zero_drink_type),
-        zeroDrinks: mapTags(tagsByType.zero_drink),
+        zeroDrinkOptions: mapTags(tagsByType.zero_drink_option),
     };
 };
 

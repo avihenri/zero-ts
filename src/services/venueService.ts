@@ -1,11 +1,8 @@
 import { MdLocationPin } from "react-icons/md";
-import { ENV } from "../config/env";
 import { buildQueryParams, QueryParams } from "../utils/buildQueryString";
-import { Tag } from "./tagService";
 import { BeerIcon, LucideIcon, ShoppingBasket, Soup } from "lucide-react";
-
-const POSTMAN_URL = ENV.POSTMAN_URL;
-// const POSTMAN_KEY = ENV.POSTMAN_KEY;
+import { handleRequest } from "../utils/apiUtils";
+import { PaginationMeta, Tag } from "../ts/types";
 
 export const venueTypeIcons: Record<string, LucideIcon | React.ComponentType> = {
     restaurant: Soup,
@@ -23,15 +20,16 @@ export type TagsByType = {
 export type VenueType = {
     id: number|string;
     name: string;
-    description?: string;
-    icon?: string;
+    description?: string|null;
+    icon?: string|null;
 }
 
 export type Venue = {
     id?: number|string;
     name: string;
+    venue_type_tag_id: string;
     venue_type: VenueType;
-    icon?: string;
+    icon?: string|null;
     formatted_address?: string;
     housenumber?: string;
     street?: string;
@@ -39,167 +37,364 @@ export type Venue = {
     country?: string;
     state?: string;
     country_code?: string;
-    timezone?: string;
+    phone?: string|null;
+    website?: string|null;
     location?: {
         type: string;
         coordinates: number[];
     };
-    tags_by_type?: TagsByType;
-    phone?: string|null;
-    website?: string;
+    timezone?: string|null;
+    tags?: Tag[];
 };
 
 export type VenueApiResponse = {
     data: Venue[];
-    meta?: {
-        total: number;
-        per_page: number;
-        current_page: number;
-        last_page: number;
-    };
+    meta?: PaginationMeta;
 };
 
 export const venueResponse = {
     "data": [
         {
-            id: "10",
-            name: "Spar Scone",
-            venue_type: {
-                id: "1739980068274896",
-                name: "Shop",
-                description: "Facere quia exercitationem ea autem molestias hic maxime temporibus.",
-                icon: 'ShoppingBasket',
+            "id": "561551486820162470",
+            "name": "26 monart road",
+            "venue_type_tag_id": "554265430437535016",
+            "venue_type": {
+                "id": "554265430437535016",
+                "name": "Bakery",
+                "description": null,
+                "icon": "Croissant"
             },
-            location: {
-                type: "Point",
-                coordinates: [
-                    -3.4018774,
-                    56.42124939
+            "formatted_address": "26 Monart Road, Perth, PH1 5UQ, United Kingdom",
+            "country_code": "gb",
+            "phone": null,
+            "website": null,
+            "timezone": "Europe/London",
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    -3.439692,
+                    56.3993061
                 ]
             },
-            formatted_address: "Spar, 104 Abbey Road, Scone, PH2 6RU, United Kingdom",
-            housenumber: "104",
-            street: "Abbey Road",
-            city: "Scone",
-            country: "United Kingdom",
-            state: "Scotland",
-            country_code: "gb",
-            timezone: "Europe/London",
-            phone: "+441738210210",
-            website: "https://scone-arms.perthshireonline.com/en/",
-            tags_by_type: {
-                dietary_types: [
-                    {
-                        id: "1739980068352952",
-                        name: "Gluten free",
-                        description: "Facilis dolores ea sapiente earum et ut quo repudiandae."
-                    },
-                    {
-                        id: "1739980068233600",
-                        name: "Lactose free",
-                        description: "Non recusandae adipisci."
-                    },
-                    {
-                        id: "1739980068918284",
-                        name: "Vegan",
-                        description: "Ipsam neque molestias qui at."
+            "tags": [
+                {
+                    "id": "554265430928265920",
+                    "name": "Beer",
+                    "description": null,
+                    "icon": null,
+                    "type": {
+                        "id": "554265430068435166",
+                        "name": "zero_drink_type",
+                        "description": "Zero drink types such as beers, cider, etc."
                     }
-                ],
-                zero_drink_types: [
-                    {
-                        id: "173998006881801",
-                        name: "Beer",
-                        description: "Aut illo quo qui id aut iusto et voluptatem."
-                    },
-                    {
-                        id: "1739980068632537",
-                        name: "Mocktail",
-                        description: "Culpa aliquam illo nemo officia cum sint quae."
+                },
+                {
+                    "id": "554265430127155925",
+                    "name": "Egg Free",
+                    "description": "Food products without any egg.",
+                    "icon": null,
+                    "type": {
+                        "id": "554265430022296565",
+                        "name": "dietary_type",
+                        "description": "Dietary types such as vegan, vegetarian, etc."
                     }
-                ],
-                zero_drinks: [
-                    {
-                        id: "1739980068842273",
-                        name: "Corona Zero",
-                        description: null
-                    },
-                    {
-                        id: "1739980068935629",
-                        name: "Guiness Zero",
-                        description: null
-                    }
-                ]
-            }
+                }
+            ]
         },
         {
-            id: "11",
-            name: "Scone Arms",
-            venue_type: {
-                id: "1739980068383227",
-                name: "Bar",
-                description: "Maiores voluptas quia animi aperiam enim aut molestiae rerum.",
-                icon: "Bar",
+            "id": "561550813428847258",
+            "name": "another test",
+            "venue_type_tag_id": "554265430437535016",
+            "venue_type": {
+                "id": "554265430437535016",
+                "name": "Bakery",
+                "description": null,
+                "icon": "Croissant"
             },
-            location: {
-                type: "Point",
-                coordinates: [
-                    -3.4048450494010045,
+            "formatted_address": "24 Monart Road, Perth, PH1 5UQ, United Kingdom",
+            "country_code": "gb",
+            "phone": null,
+            "website": null,
+            "timezone": "Europe/London",
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    -3.439692,
+                    56.3993061
+                ]
+            },
+            "tags": [
+                {
+                    "id": "554265430114573109",
+                    "name": "Dairy Free",
+                    "description": "Food products without any milk from cows, sheep or goats.",
+                    "icon": null,
+                    "type": {
+                        "id": "554265430022296565",
+                        "name": "dietary_type",
+                        "description": "Dietary types such as vegan, vegetarian, etc."
+                    }
+                }
+            ]
+        },
+        {
+            "id": "561543827563877223",
+            "name": "test",
+            "venue_type_tag_id": "554265430437535016",
+            "venue_type": {
+                "id": "554265430437535016",
+                "name": "Bakery",
+                "description": null,
+                "icon": "Croissant"
+            },
+            "formatted_address": "25 Monart Road, Perth, PH1 5UQ, United Kingdom",
+            "country_code": "gb",
+            "phone": null,
+            "website": null,
+            "timezone": "Europe/London",
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    -3.439692,
+                    56.3993061
+                ]
+            },
+            "tags": [
+                {
+                    "id": "554265430928265920",
+                    "name": "Beer",
+                    "description": null,
+                    "icon": null,
+                    "type": {
+                        "id": "554265430068435166",
+                        "name": "zero_drink_type",
+                        "description": "Zero drink types such as beers, cider, etc."
+                    }
+                },
+                {
+                    "id": "554265430135543166",
+                    "name": "Gluten Free",
+                    "description": "Gluten free food products that are not certified. Products could contain traces or may have been made in areas with other gluten containing products.",
+                    "icon": null,
+                    "type": {
+                        "id": "554265430022296565",
+                        "name": "dietary_type",
+                        "description": "Dietary types such as vegan, vegetarian, etc."
+                    }
+                },
+                {
+                    "id": "554265430999572058",
+                    "name": "Guiness Zero",
+                    "description": null,
+                    "icon": null,
+                    "type": {
+                        "id": "554265430076822636",
+                        "name": "zero_drink_options",
+                        "description": "Zero drink options such as brands, products, etc."
+                    }
+                }
+            ]
+        },
+        {
+            "id": "560859426681132987",
+            "name": "The Safari Lounge",
+            "venue_type_tag_id": "554265430445921663",
+            "venue_type": {
+                "id": "554265430445921663",
+                "name": "Bar",
+                "description": null,
+                "icon": "Bar"
+            },
+            "formatted_address": "The Safari Lounge, 21 London Road, City of Edinburgh, EH7 5SN, United Kingdom",
+            "country_code": "gb",
+            "phone": null,
+            "website": null,
+            "timezone": "Europe/London",
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    -3.1677089,
+                    55.9571419
+                ]
+            },
+            "tags": [
+                {
+                    "id": "554265430114573109",
+                    "name": "Dairy Free",
+                    "description": "Food products without any milk from cows, sheep or goats.",
+                    "icon": null,
+                    "type": {
+                        "id": "554265430022296565",
+                        "name": "dietary_type",
+                        "description": "Dietary types such as vegan, vegetarian, etc."
+                    }
+                },
+                {
+                    "id": "554265430135543166",
+                    "name": "Gluten Free",
+                    "description": "Gluten free food products that are not certified. Products could contain traces or may have been made in areas with other gluten containing products.",
+                    "icon": null,
+                    "type": {
+                        "id": "554265430022296565",
+                        "name": "dietary_type",
+                        "description": "Dietary types such as vegan, vegetarian, etc."
+                    }
+                }
+            ]
+        },
+        {
+            "id": "560196016683489555",
+            "name": "Tesco Express Scone",
+            "venue_type_tag_id": "554265430596918383",
+            "venue_type": {
+                "id": "554265430596918383",
+                "name": "Shop",
+                "description": null,
+                "icon": "ShoppingBasket"
+            },
+            "formatted_address": "Tesco, Perth Road, Scone, PH2 6JL, United Kingdom",
+            "country_code": "gb",
+            "phone": null,
+            "website": null,
+            "timezone": "Europe/London",
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    -3.3996169,
+                    56.4189667
+                ]
+            },
+            "tags": [
+                {
+                    "id": "554265430982794286",
+                    "name": "Becks Blue",
+                    "description": null,
+                    "icon": null,
+                    "type": {
+                        "id": "554265430076822636",
+                        "name": "zero_drink_options",
+                        "description": "Zero drink options such as brands, products, etc."
+                    }
+                },
+                {
+                    "id": "554265430928265920",
+                    "name": "Beer",
+                    "description": null,
+                    "icon": null,
+                    "type": {
+                        "id": "554265430068435166",
+                        "name": "zero_drink_type",
+                        "description": "Zero drink types such as beers, cider, etc."
+                    }
+                },
+                {
+                    "id": "554265430114573109",
+                    "name": "Dairy Free",
+                    "description": "Food products without any milk from cows, sheep or goats.",
+                    "icon": null,
+                    "type": {
+                        "id": "554265430022296565",
+                        "name": "dietary_type",
+                        "description": "Dietary types such as vegan, vegetarian, etc."
+                    }
+                },
+                {
+                    "id": "554265430135543166",
+                    "name": "Gluten Free",
+                    "description": "Gluten free food products that are not certified. Products could contain traces or may have been made in areas with other gluten containing products.",
+                    "icon": null,
+                    "type": {
+                        "id": "554265430022296565",
+                        "name": "dietary_type",
+                        "description": "Dietary types such as vegan, vegetarian, etc."
+                    }
+                },
+                {
+                    "id": "554265430169098465",
+                    "name": "Lactose Free",
+                    "description": "Dairy prodcuts not containing lactose sugars.",
+                    "icon": null,
+                    "type": {
+                        "id": "554265430022296565",
+                        "name": "dietary_type",
+                        "description": "Dietary types such as vegan, vegetarian, etc."
+                    }
+                }
+            ]
+        },
+        {
+            "id": "560195391136600744",
+            "name": "Scone Arms",
+            "venue_type_tag_id": "554265430450118367",
+            "venue_type": {
+                "id": "554265430450118367",
+                "name": "Bar & Restaurant",
+                "description": null,
+                "icon": "bar_restaurant.png"
+            },
+            "formatted_address": "Scone Arms, 2 Cross Street, Perth, PH2 6LR, United Kingdom",
+            "country_code": "gb",
+            "phone": null,
+            "website": null,
+            "timezone": "Europe/London",
+            "location": {
+                "type": "Point",
+                "coordinates": [
+                    -3.404845049,
                     56.41519355
                 ]
             },
-            formatted_address: "Scone Arms, 2 Cross Street, Perth, PH2 6LR, United Kingdom",
-            housenumber: "2",
-            street: "Cross Street",
-            city: "Perth",
-            country: "United Kingdom",
-            state: "Scotland",
-            country_code: "gb",
-            timezone: "Europe/London",
-            phone: "+441738551154",
-            website: "https://www.spar.co.uk/store-locator/lan47441-spar-scone",
-            tags_by_type: {
-                dietary_types: [
-                    {
-                        id: "1739980068352952",
-                        name: "Gluten free",
-                        description: "Facilis dolores ea sapiente earum et ut quo repudiandae."
-                    },
-                    {
-                        id: "1739980068918284",
-                        name: "Vegan",
-                        description: "Ipsam neque molestias qui at."
+            "tags": [
+                {
+                    "id": "554265430928265920",
+                    "name": "Beer",
+                    "description": null,
+                    "icon": null,
+                    "type": {
+                        "id": "554265430068435166",
+                        "name": "zero_drink_type",
+                        "description": "Zero drink types such as beers, cider, etc."
                     }
-                ],
-                zero_drink_types: [
-                    {
-                        id: "173998006881801",
-                        name: "Beer",
-                        description: "Aut illo quo qui id aut iusto et voluptatem."
-                    },
-                    {
-                        id: "1739980068632537",
-                        name: "Mocktail",
-                        description: "Culpa aliquam illo nemo officia cum sint quae."
+                },
+                {
+                    "id": "554265430991182688",
+                    "name": "Corona Zero",
+                    "description": null,
+                    "icon": null,
+                    "type": {
+                        "id": "554265430076822636",
+                        "name": "zero_drink_options",
+                        "description": "Zero drink options such as brands, products, etc."
                     }
-                ],
-                zero_drinks: [
-                    {
-                        id: "1739980068842273",
-                        name: "Corona Zero",
-                        description: null
-                    },
-                    {
-                        id: "1739980068935629",
-                        name: "Guiness Zero",
-                        description: null
+                },
+                {
+                    "id": "554265430135543166",
+                    "name": "Gluten Free",
+                    "description": "Gluten free food products that are not certified. Products could contain traces or may have been made in areas with other gluten containing products.",
+                    "icon": null,
+                    "type": {
+                        "id": "554265430022296565",
+                        "name": "dietary_type",
+                        "description": "Dietary types such as vegan, vegetarian, etc."
                     }
-                ]
-            }
+                },
+                {
+                    "id": "554265430999572058",
+                    "name": "Guiness Zero",
+                    "description": null,
+                    "icon": null,
+                    "type": {
+                        "id": "554265430076822636",
+                        "name": "zero_drink_options",
+                        "description": "Zero drink options such as brands, products, etc."
+                    }
+                }
+            ]
         }
     ],
     "links": {
-        "first": "https://30c6c10b-d4d5-4201-a1b2-b00c2fea3f56.mock.pstmn.io/api/venues",
-        "last": "https://30c6c10b-d4d5-4201-a1b2-b00c2fea3f56.mock.pstmn.io/api/venues",
+        "first": "http://localhost/api/venues?include=venueType%2Ctags.tagType&filter%5Bradius%5D=56.4204776%2C-3.39916%2C50&page=1",
+        "last": "http://localhost/api/venues?include=venueType%2Ctags.tagType&filter%5Bradius%5D=56.4204776%2C-3.39916%2C50&page=1",
         "prev": null,
         "next": null
     },
@@ -214,7 +409,7 @@ export const venueResponse = {
                 "active": false
             },
             {
-                "url": "https://30c6c10b-d4d5-4201-a1b2-b00c2fea3f56.mock.pstmn.io/api/venues",
+                "url": "http://localhost/api/venues?include=venueType%2Ctags.tagType&filter%5Bradius%5D=56.4204776%2C-3.39916%2C50&page=1",
                 "label": "1",
                 "active": true
             },
@@ -224,33 +419,39 @@ export const venueResponse = {
                 "active": false
             }
         ],
-        "path": "https://30c6c10b-d4d5-4201-a1b2-b00c2fea3f56.mock.pstmn.io/api/venues",
-        "per_page": 2,
-        "to": 1,
-        "total": 2
+        "path": "http://localhost/api/venues",
+        "per_page": 1000,
+        "to": 6,
+        "total": 6
     }
 };
 
 export async function fetchVenues(params?: QueryParams): Promise<VenueApiResponse> {
-    const url = new URL(`${POSTMAN_URL}/api/venues`);
+    const url = new URL(`http://localhost/api/venues`);
   
     if (params) {
       const queryParams = buildQueryParams(params);
       url.search = queryParams.toString();
     }
 
-    // const response = await fetch(url.toString(), {
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         "x-api-key": POSTMAN_KEY,
-    //     },
-    // });
+    const response = await fetch(url.toString(), {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 
-    // if (!response.ok) {
-    //     throw new Error(`API Error: ${response.statusText}`);
-    // }
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.statusText}`);
+    }
 
-    // const data: VenueApiResponse = await response.json();
-    const data: VenueApiResponse = venueResponse;
+    const data: VenueApiResponse = await response.json();
     return data;
 }
+
+export const storeVenue = async <T = Venue>(data: object) => handleRequest<T>('post', '/api/venues', data);
+
+export const updateVenue = async <T = Venue>(id: string | number, data: object) => handleRequest<T>('put', `/api/venues/${id}`, data);
+
+export const deleteVenue = async (id: string | number) => handleRequest('delete', `/api/venues/${id}`);
+
+export const fetchVenue = async <T = Venue>(id: string | number) => handleRequest<T>('get', `/api/venues/${id}`);

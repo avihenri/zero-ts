@@ -27,12 +27,12 @@ const VenueListItem = ({ venue }: VenueListItemProps) => {
         >
             <div className="w-full" data-testid="venue-list-header">
                 <div
-                    className="text-primary-400 text-lg font-semibold uppercase"
+                    className="text-primary-400 font-semibold uppercase"
                     data-testid="venue-list-name"
                 >
                     {venue.name}
                 </div>
-                <div className="relative text-grey-100 text-xs pl-4">
+                <div className="relative text-grey-100 text-xs pl-4 my-1">
                     <MdLocationPin className="absolute left-0 top-[0.2rem]" />
                     <span>{venue?.formatted_address}</span>
                 </div>
@@ -40,12 +40,19 @@ const VenueListItem = ({ venue }: VenueListItemProps) => {
             <div className="w-full flex items-end mt-2">
                 <div className="relative text-primary-50 font-semibold uppercase w-1/2 flex" data-testid="venue-list-category">
                     {(() => {
-                        const Icon = venueTypeIcons[venue.venue_type.name.toLowerCase()] || venueTypeIcons.default;
-                        return <Icon className="pr-1" />;
+                        const Icon = venueTypeIcons[venue.venue_type?.name.toLowerCase()];
+                        const hasIcon = Boolean(Icon);
+                        return (
+                        <>
+                            {hasIcon && <Icon className="pr-1" />}
+                            <span className={`${hasIcon ? "absolute left-6" : ""} top-1 text-xs`}>
+                            {venue.venue_type.name}
+                            </span>
+                        </>
+                        );
                     })()}
-                    <span className="absolute left-6 top-1 text-xs">{venue.venue_type.name}</span>
                 </div>
-                <div className="flex justify-end items-end w-1/2" data-testid="venue-list-buttons">
+                <div className="flex justify-end items-end w-1/2 my-1" data-testid="venue-list-buttons">
                     <div className="mr-1">
                         <SaveVenueButton />
                     </div>

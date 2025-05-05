@@ -3,82 +3,45 @@ import { render, screen } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import VenueDetailsPanel from "./VenueDetailsPanel";
 import { selectedVenueDetailsStateAtom } from "../../state/atoms/selectedVenueDetailsStateAtom";
+import { mockVenueDetails } from '../../tests/venues/mock-data/mockVenueDetails';
 
-const mockVenueDetails = {
-    id: "1",
-    name: "Test Venue",
-    venue_type: { 
-        id: "1",
-        name: "Restaurant"
-    },
-    formatted_address: "123 Test St, Test City",
-    phone: "+441234567890",
-    website: "www.testvenue.com",
-    tags_by_type: {
-        dietary_types: [
-            {
-                id: "2",
-                name: "Vegan",
-            }
-        ],
-        zero_drink_types: [
-            {
-                id: "3",
-                name: "Mocktails"
-            }
-        ],
-        zero_drinks: [
-            {
-                id: "4",
-                name: "Virgin Mojito"
-            }
-        ]
-    }
+const renderWithRecoil = (ui: React.ReactNode) => {
+    return render(
+        <RecoilRoot
+            initializeState={({ set }) => {
+                set(selectedVenueDetailsStateAtom, mockVenueDetails);
+            }}
+        >
+            {ui}
+        </RecoilRoot>
+    );
 };
 
 describe("VenueDetailsPanel component", () => {
     test("renders VenueDetailsPanel", () => {
-        render(
-            <RecoilRoot>
-                <VenueDetailsPanel />
-            </RecoilRoot>
-        );
+        renderWithRecoil(<VenueDetailsPanel />);
 
         expect(screen.getByTestId("venue-details-panel")).toBeInTheDocument();
     });
 
     test("displays venue name and type", () => {
-        render(
-            <RecoilRoot initializeState={({ set }) => set(selectedVenueDetailsStateAtom, mockVenueDetails)}>
-                <VenueDetailsPanel />
-            </RecoilRoot>
-        );
-        expect(screen.getByTestId("venue-list-name")).toHaveTextContent("Test Venue");
-        expect(screen.getByTestId("venue-list-category")).toHaveTextContent("Restaurant");
+        renderWithRecoil(<VenueDetailsPanel />);
+
+        expect(screen.getByTestId("venue-list-name")).toHaveTextContent("Costa Coffee");
+        expect(screen.getByTestId("venue-type-name")).toHaveTextContent("Cafe");
+        expect(screen.getByTestId("venue-list-formatted-address")).toHaveTextContent("Costa, Perth, PH1 5XA, United Kingdom");
     });
 
-    test("renders address, phone, and website links", () => {
-        render(
-            <RecoilRoot initializeState={({ set }) => set(selectedVenueDetailsStateAtom, mockVenueDetails)}>
-                <VenueDetailsPanel />
-            </RecoilRoot>
-        );
-        expect(screen.getByText("123 Test St, Test City")).toBeInTheDocument();
-        expect(screen.getByText("+441234567890")).toHaveAttribute("href", "tel:+441234567890");
-        expect(screen.getByText("www.testvenue.com")).toHaveAttribute("href", "https://www.testvenue.com");
+    test("renders phone, and website links", () => {
+        renderWithRecoil(<VenueDetailsPanel />);
+
+        expect(screen.getByTestId("venue-phone-number")).toHaveAttribute("href", "tel:+441234567890");
+        expect(screen.getByTestId("venue-website")).toHaveAttribute("href", "https://www.testvenue.com");
     });
 
-    test("renders dietary, zero drink type, and zero drink options", () => {
-        render(
-            <RecoilRoot initializeState={({ set }) => set(selectedVenueDetailsStateAtom, mockVenueDetails)}>
-                <VenueDetailsPanel />
-            </RecoilRoot>
-        );
-        expect(screen.getByText("Dietary Options")).toBeInTheDocument();
-        expect(screen.getByText("Vegan")).toBeInTheDocument();
-        expect(screen.getByText("Non-Alcoholic Drink Type Options")).toBeInTheDocument();
-        expect(screen.getByText("Mocktails")).toBeInTheDocument();
-        expect(screen.getByText("Non-Alcoholic Drink Options")).toBeInTheDocument();
-        expect(screen.getByText("Virgin Mojito")).toBeInTheDocument();
+    test("rendersVenueTagsDisplay component", () => {
+        renderWithRecoil(<VenueDetailsPanel />);
+        
+        expect(screen.getByTestId("venue-tags-display")).toBeInTheDocument();
     });
 });

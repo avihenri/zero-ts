@@ -1,3 +1,19 @@
+
+export type PaginationMeta = {
+    current_page: number;
+    from: number;
+    last_page: number;
+    links: {
+        url: string|null;
+        label: string;
+        active: boolean;
+    }[];
+    path: string;
+    per_page: number;
+    to: number;
+    total: number;
+};
+
 // =================== MAP ===================
 export type CoordinatesType = {
     lat: number|null;
@@ -5,6 +21,20 @@ export type CoordinatesType = {
 };
 
 // =================== TAGS ===================
+export type TagType = {
+    id: string;
+    name: string;
+    description?: string;
+}
+
+export type Tag = {
+    id: string;
+    name: string;
+    icon?: string|null;
+    description?: string|null;
+    type?: TagType;
+};
+
 export type  TagOption = {
     id: string;
     name: string;
@@ -16,6 +46,21 @@ export type TagSelectorType = {
     selectedTagIds: string[];
     setSelectedTags: (tags: string[]) => void;
 }
+
+export type TagGroup = {
+  heading: string;
+  tags: Tag[];
+};
+
+export type TagIndexResponse = {
+    data: Tag[];
+    meta?: {
+        total: number;
+        per_page: number;
+        current_page: number;
+        last_page: number;
+    };
+};
 
 // =================== VENUES ===================
 export type VenueAddressType = {
@@ -35,8 +80,8 @@ export type VenueAddressType = {
 export type VenueFormDataType = {
   id?: string|null;
   name: string;
-  venueTypeId: string;
-  address?: string|null;
+  venue_type_tag_id: string;
+  formatted_address?: string|null;
   housenumber?: string|null;
   street?: string|null;
   city?: string|null;
@@ -44,12 +89,12 @@ export type VenueFormDataType = {
   country?: string;
   country_code?: string;
   timezone?: string|null;
-  lat: number|null;
-  lon: number|null;
+  location?: (number | null)[];
   phone?: string|null;
   website?: string|null;
-  selectedTagIds: string[];
+  tag_ids: string[];
 };
+  
 
 // =================== USER ===================
 export type UserResponse = {

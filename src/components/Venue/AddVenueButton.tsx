@@ -12,7 +12,7 @@ const AddVenueButton = () => {
     return (
         <button
             type="button"
-            className="relative h-9 flex justify-center items-center w-full mt-2 px-2 text-secondary-400 font-semibold border border-secondary-400 py-1 rounded-md shadow-[0_0_8px_rgba(255,111,238,0.6)] hover:shadow-[0_0_10px_rgba(255,111,238,0.6)] hover:text-white group"
+            className="relative h-9 flex justify-center items-center w-[96%] mx-auto mt-2 px-2 text-grey-950 font-semibold py-1 rounded-md bg-secondary-300 hover:bg-secondary-400 group"
             onClick={() => {
                 setRightPanel(PANEL_CONTENT.CLOSED);
                 setLeftPanel((prev) => ({

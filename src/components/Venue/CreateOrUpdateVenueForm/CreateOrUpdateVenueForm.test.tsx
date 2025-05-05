@@ -32,7 +32,7 @@ jest.mock("../../../hooks/useTagsByType", () => () => ({
     venueTypes: [{ id: "1", name: "Restaurant" }],
     dietaries: [{ id: "2", name: "Vegan" }],
     zeroDrinkTypes: [],
-    zeroDrinks: [],
+    zeroDrinkOptions: [],
   }));
 jest.mock("../../../services/geoaplifyService", () => ({
   reverseGeocodeFromCoordinates: jest.fn().mockResolvedValue(null),
@@ -40,11 +40,11 @@ jest.mock("../../../services/geoaplifyService", () => ({
 
 const mockInitialData = {
     name: "",
-    venueTypeId: "",
+    venue_type_tag_id: "",
     address: "",
     phone: null,
     website: "",
-    selectedTagIds: [],
+    tag_ids: [],
     lat: null,
     lon: null,
 };

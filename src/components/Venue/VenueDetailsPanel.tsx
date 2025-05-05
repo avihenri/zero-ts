@@ -2,15 +2,16 @@ import { useRef } from "react";
 import { selectedVenueDetailsStateAtom } from "../../state/atoms/selectedVenueDetailsStateAtom";
 import { useRecoilValue } from "recoil";
 import Divider from "../Common/Divider";
-import Pill from "../Common/Pill";
 import { FaAddressBook, FaGlobe, FaPhone } from "react-icons/fa";
-import { Tag } from "../../services/tagService";
 import SaveVenueButton from "./SaveVenueButton";
 import { venueTypeIcons } from "../../services/venueService";
+import VenueTagsDisplay from "./VenueTagsDisplay";
 
 const VenueDetailsPanel = () => {
     const panelRef = useRef<HTMLDivElement | null>(null);
     const venueDetails = useRecoilValue(selectedVenueDetailsStateAtom);
+
+    if (!venueDetails) return null;
 
     return (
         <div
@@ -26,8 +27,11 @@ const VenueDetailsPanel = () => {
                     >
                         {venueDetails?.name}
                     </div>
-                    <div className="w-full px-2" data-testid="venue-list-category">
-                        <p className="text-primary-50 uppercase font-semibold mb-2 flex">
+                    <div className="w-full px-2">
+                        <p
+                            className="text-primary-50 uppercase font-semibold mb-2 flex"
+                            data-testid="venue-type-name"
+                        >
                             {(() => {
                                 const Icon = venueDetails?.venue_type.name 
                                     ? venueTypeIcons[venueDetails.venue_type.name.toLowerCase()] 
@@ -36,15 +40,19 @@ const VenueDetailsPanel = () => {
                             })()}
                             {venueDetails?.venue_type.name}
                         </p>
-                        <p className="relative text-grey-400 text-sm py-2 pl-5">
+                        <p 
+                            className="relative text-grey-400 text-sm py-2 pl-5"
+                            data-testid="venue-list-formatted-address"
+                        >
                             <FaAddressBook className="absolute left-0 top-[0.70rem]" />
                             {venueDetails?.formatted_address}
                         </p>
 
                         {venueDetails?.phone && (
                             <a
-                                href={`tel:${venueDetails.phone}`}
+                                href={`tel:+${venueDetails.phone}`}
                                 className="relative flex items-start text-grey-400 text-sm py-2 pl-5 hover:text-blue-400 cursor-pointer"
+                                data-testid="venue-phone-number"
                             >
                                 <FaPhone className="absolute left-0 top-[0.65rem]" />
                                 {venueDetails.phone}
@@ -57,6 +65,7 @@ const VenueDetailsPanel = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="relative flex items-start text-grey-400 text-sm py-2 pl-5 hover:text-blue-400 cursor-pointer"
+                                data-testid="venue-website"
                             >
                                 <FaGlobe className="absolute left-0 top-[0.65rem]" />
                                 {venueDetails.website}
@@ -69,45 +78,8 @@ const VenueDetailsPanel = () => {
                     </div>
                     <Divider classNames="my-4" />
                 </div>
-                
 
-                {venueDetails?.tags_by_type?.dietary_types?.length && (
-                    <>
-                        <div className="w-full px-2">
-                            <h1 className="text-primary-400 my-2 font-semibold">Dietary Options</h1>
-
-                            {venueDetails?.tags_by_type?.dietary_types.map((tag : Tag) => (
-                                <Pill key={tag.id} text={tag.name} />
-                            ))}
-                        </div>
-                        <Divider classNames="my-4" />
-                    </>
-                )}
-        
-                {venueDetails?.tags_by_type?.zero_drink_types?.length && (
-                    <>
-                        <div className="w-full px-2">
-                            <h1 className="text-primary-400 my-2 font-semibold">Non-Alcoholic Drink Type Options</h1>
-
-                            {venueDetails?.tags_by_type?.zero_drink_types.map((tag : Tag) => (
-                                <Pill key={tag.id} text={tag.name} />
-                            ))}
-                        </div>
-
-                        <Divider classNames="my-4" />
-                    </>
-                )}
-
-                {venueDetails?.tags_by_type?.zero_drinks?.length && (
-                    <>
-                        <div className="w-full px-2">
-                            <h1 className="text-primary-400 my-2 font-semibold">Non-Alcoholic Drink Options</h1>
-                            {venueDetails?.tags_by_type?.zero_drinks.map((tag : Tag) => (
-                                <Pill key={tag.id} text={tag.name} />
-                            ))}
-                        </div>
-                    </>
-                )}
+                <VenueTagsDisplay venueDetails={venueDetails} />
             </div>
         </div>
     );
